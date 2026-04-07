@@ -621,55 +621,163 @@
             background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08) 20%, rgba(255,255,255,0.08) 80%, transparent);
         }
 
+        /* ===== STORY BRIDGE (narrative transition between sections) ===== */
+        .story-bridge {
+            padding: 6rem 3rem;
+            text-align: center;
+            position: relative;
+        }
+        .story-bridge-line {
+            width: 1px;
+            height: 80px;
+            background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.15), transparent);
+            margin: 0 auto 2.5rem;
+        }
+        .story-bridge-text {
+            font-family: 'Instrument Serif', serif;
+            font-style: italic;
+            font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+            color: rgba(255,255,255,0.3);
+            max-width: 500px;
+            margin: 0 auto;
+            line-height: 1.5;
+        }
+
+        /* ===== CHAPTER MARKER ===== */
+        .chapter-marker {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.6rem;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.2);
+            margin-bottom: 0.75rem;
+        }
+
+        /* ===== SCROLL PROGRESS BAR ===== */
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 2px;
+            background: linear-gradient(90deg, rgba(255,255,255,0.05), rgba(255,255,255,0.35));
+            z-index: 200;
+            width: 0%;
+            transition: width 0.1s linear;
+        }
+
+        /* ===== STORY TIMELINE (right side dots) ===== */
+        .story-nav {
+            position: fixed;
+            right: 1.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 99;
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+            align-items: center;
+        }
+        .story-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.15);
+            transition: background 0.4s, transform 0.4s;
+            cursor: pointer;
+        }
+        .story-dot.active {
+            background: rgba(255,255,255,0.7);
+            transform: scale(1.5);
+        }
+        .story-dot-label {
+            position: absolute;
+            right: 20px;
+            white-space: nowrap;
+            font-size: 0.6rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0);
+            transition: color 0.3s;
+            pointer-events: none;
+        }
+        .story-dot:hover .story-dot-label {
+            color: rgba(255,255,255,0.5);
+        }
+
         /* ===== RESPONSIVE ===== */
         @media (max-width: 900px) {
             .about-grid { grid-template-columns: 1fr; gap: 3rem; }
             .philosophy-grid { grid-template-columns: 1fr; }
             .services-grid { grid-template-columns: 1fr; }
             .nav-links { display: none; }
+            .story-nav { display: none; }
             #hero { padding: 0 1.5rem 3rem; }
             #about, #philosophy, #services, #featured, #contact { padding-left: 1.5rem; padding-right: 1.5rem; }
+            .story-bridge { padding: 4rem 1.5rem; }
         }
         @media (max-width: 600px) {
             .hero-title { font-size: clamp(2.5rem, 12vw, 4rem); }
             .about-stats { grid-template-columns: 1fr; }
             .footer-line { flex-direction: column; gap: 0.5rem; }
+            .story-bridge-text { font-size: 1.1rem; }
         }
     </style>
 </head>
 <body>
 
+    <!-- SCROLL PROGRESS -->
+    <div class="scroll-progress" id="scrollProgress"></div>
+
+    <!-- STORY NAV (right-side dots) -->
+    <div class="story-nav" id="storyNav">
+        <div class="story-dot active" data-section="hero"><span class="story-dot-label">Opening</span></div>
+        <div class="story-dot" data-section="about"><span class="story-dot-label">Origin</span></div>
+        <div class="story-dot" data-section="featured"><span class="story-dot-label">Proof</span></div>
+        <div class="story-dot" data-section="philosophy"><span class="story-dot-label">Beliefs</span></div>
+        <div class="story-dot" data-section="services"><span class="story-dot-label">Arsenal</span></div>
+        <div class="story-dot" data-section="contact"><span class="story-dot-label">Invitation</span></div>
+    </div>
+
     <!-- NAV -->
     <nav class="nav" id="mainNav">
         <a href="#hero" class="nav-logo">Aditya Chilka</a>
         <div class="nav-links">
-            <a href="#about">About</a>
-            <a href="#philosophy">Vision</a>
-            <a href="#services">Work</a>
-            <a href="#contact">Contact</a>
+            <a href="#about">Origin</a>
+            <a href="#philosophy">Beliefs</a>
+            <a href="#services">Arsenal</a>
+            <a href="#contact">Connect</a>
         </div>
     </nav>
 
-    <!-- SECTION 1: HERO -->
+    <!-- ============================================ -->
+    <!-- CHAPTER I: THE OPENING                       -->
+    <!-- ============================================ -->
     <section id="hero" class="video-section">
         <video class="video-bg" id="heroVideo" muted autoplay playsinline preload="auto" loop>
             <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260405_074625_a81f018a-956b-43fb-9aee-4d1508e30e6a.mp4" type="video/mp4">
         </video>
         <div class="video-overlay" style="background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.3) 40%, rgba(0,0,0,0.15) 100%);"></div>
         <div class="section-content" style="flex:1; display:flex; flex-direction:column; justify-content:flex-end;">
-            <div class="hero-tag liquid-glass reveal" style="border-radius:100px; width:fit-content;">Founder & CEO, Rapid Circuitry &mdash; Hyderabad</div>
-            <h1 class="hero-title reveal reveal-delay-1">Hardware<br>that <em>ships.</em></h1>
-            <p class="hero-subtitle reveal reveal-delay-2">500+ embedded systems delivered. From napkin sketch to factory floor — I design the circuits, firmware, and connected systems that turn your idea into a product people hold.</p>
+            <div class="chapter-marker reveal">Chapter I</div>
+            <div class="hero-tag liquid-glass reveal reveal-delay-1" style="border-radius:100px; width:fit-content;">Founder & CEO, Rapid Circuitry &mdash; Hyderabad</div>
+            <h1 class="hero-title reveal reveal-delay-2">Hardware<br>that <em>ships.</em></h1>
+            <p class="hero-subtitle reveal reveal-delay-3">I design circuits, write firmware, and build connected systems. 500+ projects taken from napkin sketch to factory floor. This is the story of how — and why.</p>
         </div>
-        <div class="hero-scroll-indicator reveal reveal-delay-4">
-            <span style="font-size:0.6rem; letter-spacing:0.2em; text-transform:uppercase; color:rgba(255,255,255,0.3);">Scroll</span>
+        <div class="hero-scroll-indicator reveal reveal-delay-5">
+            <span style="font-size:0.6rem; letter-spacing:0.2em; text-transform:uppercase; color:rgba(255,255,255,0.3);">Begin</span>
             <div class="scroll-line"></div>
         </div>
     </section>
 
-    <div class="section-divider"></div>
+    <!-- STORY BRIDGE: Opening → Origin -->
+    <div class="story-bridge reveal">
+        <div class="story-bridge-line"></div>
+        <p class="story-bridge-text">Every product you hold started as someone's impossible idea. This is where mine began.</p>
+    </div>
 
-    <!-- SECTION 2: ABOUT -->
+    <!-- ============================================ -->
+    <!-- CHAPTER II: THE ORIGIN                       -->
+    <!-- ============================================ -->
     <section id="about" class="video-section">
         <video class="video-bg" id="aboutVideo" muted autoplay playsinline preload="auto" loop>
             <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260402_054547_9875cfc5-155a-4229-8ec8-b7ba7125cbf8.mp4" type="video/mp4">
@@ -678,10 +786,11 @@
         <div class="section-content">
             <div class="about-grid">
                 <div>
-                    <div class="about-label reveal">The Short Version</div>
-                    <h2 class="about-heading reveal reveal-delay-1">I turn <em>ideas</em><br>into products<br>you can hold.</h2>
-                    <p class="about-text reveal reveal-delay-2">Most hardware projects fail between prototype and production. Wrong component, bad thermal design, firmware that works on the bench but not in the field. I founded Rapid Circuitry to fix that. We handle everything — schematic capture, multi-layer PCB layout, embedded firmware, connectivity, and DFM — so your product arrives at the factory ready to manufacture.</p>
-                    <p class="about-text reveal reveal-delay-3" style="margin-top:1rem;">Today we're building AI tools that cut design cycles from weeks to hours. ESP32, STM32, nRF52 — LoRa, BLE, cellular — medical-grade to industrial-tough. If it needs a circuit board, a microcontroller, and a reason to exist, that's where I live.</p>
+                    <div class="chapter-marker reveal">Chapter II</div>
+                    <div class="about-label reveal">The Origin Story</div>
+                    <h2 class="about-heading reveal reveal-delay-1">Most hardware<br>projects <em>die</em><br>right here.</h2>
+                    <p class="about-text reveal reveal-delay-2">Between prototype and production. The thermal design fails. The component goes end-of-life. The firmware works on the bench but freezes in a 45-degree warehouse. I watched it happen to too many teams with brilliant ideas — and decided to build a company that closes the gap.</p>
+                    <p class="about-text reveal reveal-delay-3" style="margin-top:1rem;">Rapid Circuitry is that company. We take full ownership — schematic, layout, firmware, connectivity, DFM, compliance — so that what works in the lab works in the world. And now we're using AI to make the entire process faster than anyone thought possible.</p>
                 </div>
                 <div class="about-stats">
                     <div class="stat-card liquid-glass reveal reveal-delay-2">
@@ -690,11 +799,11 @@
                     </div>
                     <div class="stat-card liquid-glass reveal reveal-delay-3">
                         <div class="stat-number font-mono" style="font-size:2rem;">2020</div>
-                        <div class="stat-label">Founded</div>
+                        <div class="stat-label">Founded in Hyderabad</div>
                     </div>
                     <div class="stat-card liquid-glass reveal reveal-delay-4">
                         <div class="stat-number" style="font-size:2rem;">Concept&rarr;Fab</div>
-                        <div class="stat-label">End-to-End</div>
+                        <div class="stat-label">End-to-End Ownership</div>
                     </div>
                     <div class="stat-card liquid-glass reveal reveal-delay-5">
                         <div class="stat-number" style="font-size:2rem;">ISO</div>
@@ -705,25 +814,38 @@
         </div>
     </section>
 
-    <div class="section-divider"></div>
+    <!-- STORY BRIDGE: Origin → Proof -->
+    <div class="story-bridge reveal">
+        <div class="story-bridge-line"></div>
+        <p class="story-bridge-text">Words are easy. Let me show you what we actually do.</p>
+    </div>
 
-    <!-- SECTION 3: FEATURED VIDEO -->
+    <!-- ============================================ -->
+    <!-- CHAPTER III: THE PROOF                       -->
+    <!-- ============================================ -->
     <section id="featured">
         <div class="featured-container">
-            <div class="featured-label reveal">From Our Lab</div>
+            <div class="chapter-marker reveal" style="text-align:center;">Chapter III</div>
+            <div class="featured-label reveal">The Proof</div>
             <h2 class="featured-title reveal reveal-delay-1">Watch the <em>build</em></h2>
             <div class="featured-video-wrapper liquid-glass reveal-scale reveal-delay-2">
                 <video id="featuredVideo" muted autoplay playsinline preload="auto" loop style="opacity:0;">
                     <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260324_151826_c7218672-6e92-402c-9e45-f1e0f454bdc4.mp4" type="video/mp4">
                 </video>
             </div>
-            <p class="featured-caption reveal reveal-delay-3">Custom embedded hardware — designed in Hyderabad, deployed worldwide. From first sketch to first shipment.</p>
+            <p class="featured-caption reveal reveal-delay-3">From bare copper to living product. Custom embedded hardware — designed in Hyderabad, deployed across continents.</p>
         </div>
     </section>
 
-    <div class="section-divider"></div>
+    <!-- STORY BRIDGE: Proof → Beliefs -->
+    <div class="story-bridge reveal">
+        <div class="story-bridge-line"></div>
+        <p class="story-bridge-text">Behind every decision is a belief. These are the four that drive everything we build.</p>
+    </div>
 
-    <!-- SECTION 4: PHILOSOPHY -->
+    <!-- ============================================ -->
+    <!-- CHAPTER IV: THE BELIEFS                      -->
+    <!-- ============================================ -->
     <section id="philosophy" class="video-section">
         <video class="video-bg" id="philVideo" muted autoplay playsinline preload="auto" loop>
             <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260314_131748_f2ca2a28-fed7-44c8-b9a9-bd9acdd5ec31.mp4" type="video/mp4">
@@ -731,7 +853,8 @@
         <div class="video-overlay" style="background: linear-gradient(135deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.5) 50%, rgba(0,0,0,0.8) 100%);"></div>
         <div class="section-content">
             <div class="philosophy-container">
-                <div class="about-label reveal" style="text-align:center;">How We Think</div>
+                <div class="chapter-marker reveal" style="text-align:center;">Chapter IV</div>
+                <div class="about-label reveal" style="text-align:center;">The Beliefs</div>
                 <h2 class="philosophy-heading reveal reveal-delay-1">Principles, not <em>process</em></h2>
                 <div class="philosophy-grid">
                     <div class="philosophy-card liquid-glass reveal reveal-delay-2">
@@ -759,9 +882,15 @@
         </div>
     </section>
 
-    <div class="section-divider"></div>
+    <!-- STORY BRIDGE: Beliefs → Arsenal -->
+    <div class="story-bridge reveal">
+        <div class="story-bridge-line"></div>
+        <p class="story-bridge-text">Beliefs without capability are just wishes. Here's the arsenal that makes it real.</p>
+    </div>
 
-    <!-- SECTION 5: SERVICES -->
+    <!-- ============================================ -->
+    <!-- CHAPTER V: THE ARSENAL                       -->
+    <!-- ============================================ -->
     <section id="services" class="video-section">
         <video class="video-bg" id="servicesVideo" muted autoplay playsinline preload="auto" loop>
             <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260307_083826_e938b29f-a43a-41ec-a153-3d4730578ab8.mp4" type="video/mp4">
@@ -769,7 +898,8 @@
         <div class="video-overlay" style="background: radial-gradient(ellipse at bottom, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.9) 80%);"></div>
         <div class="section-content">
             <div class="services-container">
-                <div class="about-label reveal">Capabilities</div>
+                <div class="chapter-marker reveal">Chapter V</div>
+                <div class="about-label reveal">The Arsenal</div>
                 <h2 class="services-heading reveal reveal-delay-1">What we <em>build</em></h2>
                 <p class="services-sub reveal reveal-delay-2">Full-spectrum embedded hardware development. No handoffs, no gaps, no excuses.</p>
                 <div class="services-grid">
@@ -820,12 +950,19 @@
         </div>
     </section>
 
-    <div class="section-divider"></div>
+    <!-- STORY BRIDGE: Arsenal → Invitation -->
+    <div class="story-bridge reveal">
+        <div class="story-bridge-line"></div>
+        <p class="story-bridge-text">Now you know who I am, what I believe, and what I can build. The only question left is yours.</p>
+    </div>
 
-    <!-- CONTACT / FOOTER -->
+    <!-- ============================================ -->
+    <!-- CHAPTER VI: THE INVITATION                   -->
+    <!-- ============================================ -->
     <section id="contact">
         <div class="section-content" style="max-width:800px; margin:0 auto;">
-            <div class="about-label reveal" style="text-align:center;">Start a Conversation</div>
+            <div class="chapter-marker reveal" style="text-align:center;">Chapter VI</div>
+            <div class="about-label reveal" style="text-align:center;">The Invitation</div>
             <h2 class="contact-heading reveal reveal-delay-1">Have a hardware<br>problem? <em>Good.</em></h2>
             <p class="contact-text reveal reveal-delay-2">I like the hard ones. Tell me what you're building — or what's stuck — and I'll tell you how we'd approach it. No pitch deck required.</p>
             <div class="contact-links reveal reveal-delay-3">
@@ -946,9 +1083,9 @@
         }, { passive: true });
 
         // === SMOOTH NAV LINKS ===
-        document.querySelectorAll('.nav-links a, .nav-logo').forEach(function(a) {
+        document.querySelectorAll('.nav-links a, .nav-logo, .story-dot').forEach(function(a) {
             a.addEventListener('click', function(e) {
-                var href = a.getAttribute('href');
+                var href = a.getAttribute('href') || '#' + a.getAttribute('data-section');
                 if (href && href.startsWith('#')) {
                     e.preventDefault();
                     var target = document.querySelector(href);
@@ -956,6 +1093,33 @@
                 }
             });
         });
+
+        // === SCROLL PROGRESS BAR ===
+        var progressBar = document.getElementById('scrollProgress');
+        function updateProgress() {
+            var scrollTop = window.scrollY;
+            var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            var pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+            progressBar.style.width = pct + '%';
+        }
+        window.addEventListener('scroll', updateProgress, { passive: true });
+
+        // === STORY NAV DOTS ===
+        var storyDots = document.querySelectorAll('.story-dot');
+        var sections = ['hero', 'about', 'featured', 'philosophy', 'services', 'contact'];
+        var sectionEls = sections.map(function(id) { return document.getElementById(id); });
+
+        function updateStoryDots() {
+            var scrollPos = window.scrollY + window.innerHeight * 0.4;
+            var activeIdx = 0;
+            sectionEls.forEach(function(el, i) {
+                if (el && el.offsetTop <= scrollPos) activeIdx = i;
+            });
+            storyDots.forEach(function(dot, i) {
+                dot.classList.toggle('active', i === activeIdx);
+            });
+        }
+        window.addEventListener('scroll', updateStoryDots, { passive: true });
 
     })();
     </script>
