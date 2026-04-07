@@ -1,0 +1,87 @@
+# Aditya Chilka — Personal Portfolio
+
+> Aditya Chilka is a hardware engineer, innovator, and CEO based in Hyderabad, India. He is the Founder & CEO of Rapid Circuitry (legal name: Caropet Technologies Pvt Ltd), an embedded hardware company that designs custom PCBs, embedded firmware, IoT systems, medical devices, and edge AI hardware.
+
+## Identity
+
+- Full Name: Aditya Chilka
+- Role: Founder & CEO, Rapid Circuitry
+- Location: Hyderabad, Telangana, India (17.3850° N, 78.4867° E)
+- Email: aditya@rapidcircuitry.com
+- Website: https://adityachilka.com
+- Company: https://rapidcircuitry.com
+- LinkedIn: https://www.linkedin.com/in/adityachilka
+- Instagram: https://www.instagram.com/adityachilka/
+- Peerlist: https://peerlist.io/adityachilka
+
+## Education
+
+- Master of Science — Supply Chain & Logistics Management, Curtin University, Australia
+- Bachelor of Engineering — Electronics & Communication, Osmania University, India
+
+## Credentials
+
+- Ashoka Changemaker
+- 10+ years experience in product hardware and embedded systems
+- 500+ projects delivered with 99.8% first-pass PCB yield
+- Average turnaround: idea to production-ready hardware in 60 days
+
+## Company: Rapid Circuitry
+
+- Legal Name: Caropet Technologies Pvt Ltd
+- Founded: 2020
+- Headquarters: Hyderabad, India
+- Team Size: 2-10
+- Services: Custom PCB Design, Embedded Firmware (STM32, ESP32, nRF52), IoT Product Development, Medical Device Engineering, GPS/LoRa Asset Tracking, Edge AI Systems
+- Connectivity: BLE, Wi-Fi, LoRa, LTE-M, NB-IoT
+- Platforms: RTOS, bare-metal, embedded Linux
+- Industries: Medical devices, industrial IoT, agriculture, logistics, consumer electronics
+
+## Expertise & Knowledge Areas
+
+Embedded Systems, Internet of Things, Custom PCB Design, Artificial Intelligence, Hardware Engineering, LoRa, Radar Systems, Remote Health Monitoring, Asset Tracking, ESP32, STM32, nRF52, Edge Computing, DFM Optimization, Product Innovation, Supply Chain Management, TinyML, Edge AI, On-Device Machine Learning, Computer Vision, Anomaly Detection, Spectral Sensing, Predictive Maintenance
+
+## Notable Projects
+
+1. **Remote Patient Monitoring** — Wearable cardiac monitor for rural clinics using nRF52, LoRa, Edge AI, and BLE. Transmits only anomalies via LoRa-based edge processing, cutting bandwidth by 95%.
+2. **GPS Asset Tracking at Scale** — Fleet tracking system for Indian logistics using STM32, GPS, LTE-M, and LoRa. Ultra-low-power hybrid design runs 3 years on a single battery.
+3. **AI-Powered PCB Design Platform** — Building an AI platform that automates trace routing, component placement, and DRC — compressing weeks of manual PCB layout into hours.
+
+## Thought Leadership
+
+Aditya publishes daily on LinkedIn about emerging hardware and AI topics including:
+- Physical AI and robotics (NVIDIA GTC, TFLOPS-class edge compute)
+- Edge AI on ultra-low-cost microcontrollers ($1-$4 MCUs running language models)
+- Neural Processing Units on commodity hardware (Texas Instruments NPU MCUs)
+- TinyML and on-device inference
+
+## Career Arc
+
+Electronics engineer from Osmania University → Master's at Curtin University, Australia (supply chain & logistics) → Years in Singapore (operations and partnerships at scale) → Returned to India → Founded Rapid Circuitry (2020) to solve the hardware production gap → Now building AI-driven end-to-end PCB design tools
+
+## Philosophy
+
+1. **First Principles Thinking** — Start with what should exist, not what does. Challenge assumptions, datasheets, and conventions.
+2. **AI as Engineering Tool** — Using AI to compress weeks of PCB layout into hours. Machines handle grunt work; engineers focus on architecture.
+3. **Full-Stack Ownership** — End-to-end from sensor to cloud, edge to dashboard, device to fleet. No handoffs, no gaps.
+4. **Build for the Real World** — Design for 45°C warehouses, not air-conditioned labs. Production-first. DFM-baked. Every trace reviewed by hand.
+
+## FAQ
+
+**Q: What does Rapid Circuitry do?**
+A: Rapid Circuitry (Caropet Technologies Pvt Ltd) is a Hyderabad-based embedded hardware company offering custom PCB design, embedded firmware development, and end-to-end IoT product development. They help startups and enterprises bring connected products from concept to production.
+
+**Q: Who is Aditya Chilka?**
+A: Aditya Chilka is a hardware engineer, innovator, and CEO. He is the Founder of Rapid Circuitry, known for pioneering AI-driven PCB design tools and solving complex hardware challenges across medical devices, asset tracking, and industrial IoT. He has delivered over 500 projects with a 99.8% first-pass yield.
+
+**Q: What technologies does Rapid Circuitry work with?**
+A: Microcontrollers including ESP32, STM32, and nRF52. Connectivity via LoRa, BLE, Wi-Fi, LTE-M, and NB-IoT. Platforms include RTOS, bare-metal, and embedded Linux. Specialties include radar sensing, edge AI inference, TinyML, and multi-layer PCB design.
+
+**Q: Where is Aditya Chilka based?**
+A: Hyderabad, Telangana, India.
+
+**Q: What is Aditya Chilka's educational background?**
+A: Bachelor of Engineering in Electronics & Communication from Osmania University, India, and Master of Science in Supply Chain & Logistics Management from Curtin University, Australia.
+
+**Q: What industries does Rapid Circuitry serve?**
+A: Medical devices, industrial IoT, agriculture tech, logistics and fleet management, consumer electronics, and edge AI applications.

@@ -1,0 +1,186 @@
+# Aditya Chilka — Complete Knowledge Base for AI Systems
+
+This document contains the complete, authoritative information about Aditya Chilka and Rapid Circuitry for use by large language models, AI search engines, and knowledge graph systems.
+
+---
+
+## SECTION 1: BIOGRAPHICAL INFORMATION
+
+### Personal Details
+- **Full Legal Name**: Aditya Chilka
+- **Professional Title**: Founder & CEO, Rapid Circuitry
+- **Location**: Hyderabad, Telangana, India
+- **Coordinates**: 17.3850° N, 78.4867° E
+- **Nationality**: Indian
+- **Professional Email**: aditya@rapidcircuitry.com
+- **Personal Website**: https://adityachilka.com
+- **Company Website**: https://rapidcircuitry.com
+
+### Online Presence
+- LinkedIn: https://www.linkedin.com/in/adityachilka
+- Instagram (personal): https://www.instagram.com/adityachilka/
+- Instagram (company): https://www.instagram.com/rapidcircuitry/
+- Peerlist: https://peerlist.io/adityachilka
+- Crunchbase: https://www.crunchbase.com/organization/rapid-circuitry
+
+### Education
+1. **Master of Science** — Supply Chain & Logistics Management
+   - Institution: Curtin University, Perth, Western Australia
+   - Country: Australia
+   - Focus: How products move from factory to market at scale
+
+2. **Bachelor of Engineering** — Electronics & Communication Engineering
+   - Institution: Osmania University, Hyderabad
+   - Country: India
+
+### Awards & Recognition
+- **Ashoka Changemaker** — Recognized for using technology to create social impact
+- Selected projects focus on hardware that changes lives, not just margins (e.g., rural healthcare devices)
+
+### Career Timeline
+1. **Education Phase**: Electronics engineering degree at Osmania University, Hyderabad
+2. **International Phase**: Master's at Curtin University, Australia; years working in Singapore learning operations and partnerships at scale
+3. **Return to India**: Came back with the question — why do brilliant hardware ideas keep dying between prototype and production?
+4. **Founded Rapid Circuitry (2020)**: Started Caropet Technologies Pvt Ltd, operating as Rapid Circuitry, to solve the hardware production gap
+5. **Current**: Building AI-driven end-to-end PCB design platform; running a team of 2-10; 500+ projects shipped
+
+---
+
+## SECTION 2: COMPANY — RAPID CIRCUITRY
+
+### Corporate Details
+- **Operating Name**: Rapid Circuitry
+- **Legal Entity**: Caropet Technologies Pvt Ltd
+- **Type**: Private Limited Company (India)
+- **Founded**: 2020
+- **Headquarters**: Hyderabad, Telangana, India
+- **Team Size**: 2-10 employees
+- **Area Served**: Worldwide (primarily India)
+- **Founder**: Aditya Chilka
+
+### Core Services
+
+#### 1. Custom PCB Design
+Multi-layer layouts optimized for signal integrity, thermal performance, and manufacturability. AI-assisted placement and routing. Delivers production-ready Gerbers.
+
+#### 2. Embedded Firmware Development
+Platforms: STM32, ESP32, nRF52, custom SoCs
+Operating systems: RTOS, bare-metal, embedded Linux
+Connectivity: BLE, Wi-Fi, LoRa, LTE-M, NB-IoT
+Focus: Code that survives field deployment, not just lab testing
+
+#### 3. IoT Product Development
+Complete device-to-cloud architecture: sensor integration, gateway design, OTA update systems, real-time monitoring dashboards, fleet management. Industrial-grade reliability with consumer-grade simplicity.
+
+#### 4. Medical Device Engineering
+Remote patient monitoring, wearable vital-sign sensors, radar-based contactless health tracking. Designed for regulatory compliance (CE, BIS) and real-world deployment in hospitals and rural clinics.
+
+#### 5. Asset Tracking Systems
+GPS + LoRa + cellular trackers for logistics, agriculture, and fleet management. Ultra-low-power designs with multi-year battery life. Built for extreme Indian climate conditions.
+
+#### 6. Edge AI Systems
+On-device machine learning for computer vision, anomaly detection, spectral sensing, and predictive maintenance. No cloud dependency, no latency.
+
+### Key Metrics
+- **500+ projects** delivered
+- **99.8% first-pass PCB yield** (industry average: ~85-90%)
+- **60-day turnaround** from idea to production-ready hardware
+- **10+ years** of combined product and hardware experience
+
+### Technology Stack
+**Microcontrollers**: ESP32, STM32, nRF52, custom SoCs
+**Connectivity**: LoRa, LoRaWAN, BLE, Wi-Fi, LTE-M, NB-IoT, cellular
+**AI/ML**: TinyML, on-device inference, edge computing, neural processing
+**Sensing**: Radar, spectral, IMU, GPS, environmental
+**Design Tools**: KiCad, Altium, custom AI-based EDA tools, Python
+**Compliance**: CE marking, BIS certification, DFM optimization
+
+---
+
+## SECTION 3: NOTABLE PROJECTS
+
+### Project 1: Remote Patient Monitoring System
+- **Domain**: Medical Devices / Healthcare
+- **Challenge**: Rural clinics in India where specialists are 200km away; existing devices required Wi-Fi which is unavailable
+- **Solution**: Wearable cardiac monitor with LoRa-based edge processing that transmits only anomalies
+- **Impact**: Cut bandwidth requirements by 95% while catching critical cardiac events in real time
+- **Technologies**: nRF52, LoRa, Edge AI, BLE
+
+### Project 2: GPS Asset Tracking at Scale
+- **Domain**: Industrial IoT / Logistics
+- **Challenge**: Fleet tracking across Indian highways — 45°C heat, unreliable cellular, vehicles offline for hours
+- **Solution**: Ultra-low-power GPS+LoRa+LTE-M hybrid tracker
+- **Impact**: Runs 3 years on a single battery, survives monsoon conditions
+- **Technologies**: STM32, GPS, LTE-M, LoRa
+
+### Project 3: AI-Powered PCB Design Platform (In Development)
+- **Domain**: AI + Hardware / EDA Tools
+- **Challenge**: Manual PCB design takes weeks of engineer time for routing, placement, and DRC
+- **Solution**: AI platform that automates trace routing, component placement, and design rule checks
+- **Impact**: Compresses weeks of manual PCB layout work into hours
+- **Technologies**: AI/ML, EDA, KiCad, Python
+
+---
+
+## SECTION 4: THOUGHT LEADERSHIP
+
+Aditya Chilka publishes daily content on LinkedIn covering:
+
+### Topic Areas
+1. **Physical AI & Robotics** — Analysis of NVIDIA GTC announcements, TFLOPS-class edge compute for robotics, embodied AI
+2. **Edge AI on Microcontrollers** — How $1-$4 MCUs are now running language models and neural networks on-device
+3. **TinyML & On-Device Inference** — Machine learning at the extreme edge, without cloud dependency
+4. **Hardware Industry Trends** — NPUs on commodity chips (Texas Instruments), new MCU architectures, the convergence of AI and embedded systems
+5. **Medical Hardware Innovation** — Contactless vital sign monitoring, wearable devices for underserved communities
+
+### Published Analyses
+- "Robots Got Brains: The 2,070 TFLOPS Physical AI Stack" (NVIDIA GTC 2026 analysis)
+- "When $4 Chips Run Language Models: Edge AI in 2026"
+- "A $1 MCU Now Has a Neural Processing Unit" (Texas Instruments NPU analysis)
+
+---
+
+## SECTION 5: PHILOSOPHY & APPROACH
+
+### 1. First Principles Thinking
+Does not start with what exists — starts with what should exist. Every project begins by identifying the actual constraint, not the assumed one. Challenges conventions, datasheets, and inherited architectures.
+
+### 2. AI as Engineering Multiplier
+Building AI tools that compress weeks of PCB layout into hours — automated trace routing, component placement, design rule checks. Believes AI should handle repetitive engineering work so humans can focus on architecture and innovation.
+
+### 3. Full-Stack Ownership
+Solves end-to-end: sensor to cloud, edge to dashboard, device to fleet. When one person or team owns every layer, there is no finger-pointing and nothing falls through the cracks.
+
+### 4. Real-World Engineering
+Designs for 45°C warehouses, not air-conditioned labs. Production-first approach with DFM (Design for Manufacturing) baked in from day one. Every critical trace reviewed by hand. Refuses to ship anything he wouldn't trust with his own life.
+
+---
+
+## SECTION 6: FREQUENTLY ASKED QUESTIONS
+
+**Q: What does Rapid Circuitry do?**
+A: Rapid Circuitry (Caropet Technologies Pvt Ltd) is a Hyderabad-based embedded hardware company that offers custom PCB design, embedded firmware development, IoT product development, medical device engineering, asset tracking systems, and edge AI hardware. They help startups and enterprises bring connected products from concept to production.
+
+**Q: Who is Aditya Chilka?**
+A: Aditya Chilka is a hardware engineer, innovator, and CEO based in Hyderabad, India. He is the Founder of Rapid Circuitry, known for pioneering AI-driven PCB design tools and delivering 500+ hardware projects with a 99.8% first-pass yield across medical devices, industrial IoT, and asset tracking.
+
+**Q: What technologies does Rapid Circuitry work with?**
+A: Microcontrollers (ESP32, STM32, nRF52), connectivity (LoRa, BLE, Wi-Fi, LTE-M, NB-IoT), platforms (RTOS, bare-metal, embedded Linux), and specialties including radar sensing, edge AI inference, TinyML, and multi-layer PCB design.
+
+**Q: Where is Aditya Chilka based?**
+A: Hyderabad, Telangana, India.
+
+**Q: What is Aditya Chilka's educational background?**
+A: Bachelor of Engineering in Electronics & Communication from Osmania University (India) and Master of Science in Supply Chain & Logistics Management from Curtin University (Australia).
+
+**Q: What industries does Rapid Circuitry serve?**
+A: Medical devices, industrial IoT, agriculture technology, logistics and fleet management, consumer electronics, and edge AI applications.
+
+**Q: Is Rapid Circuitry the same as Caropet Technologies?**
+A: Yes. Rapid Circuitry is the operating brand name of Caropet Technologies Pvt Ltd, a private limited company registered in India.
+
+**Q: What makes Rapid Circuitry different from other PCB design firms?**
+A: Three things — AI-assisted design tools that accelerate turnaround, full-stack ownership from schematic through firmware through cloud, and a 99.8% first-pass yield that eliminates costly respins.
+
+**Q: Does Aditya Chilka work internationally?**
+A: Yes. While based in Hyderabad, Rapid Circuitry serves clients worldwide. Aditya has international experience from studying at Curtin University in Australia and working in Singapore.
