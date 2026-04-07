@@ -75,7 +75,11 @@
             "areaServed": { "@type": "Place", "name": "Worldwide" },
             "knowsAbout": ["Custom PCB Design", "Embedded Firmware Development", "IoT Product Development", "Medical Device Hardware", "Asset Tracking Systems", "Edge AI Hardware"]
         },
-        "knowsAbout": ["Embedded Systems", "Internet of Things", "PCB Design", "Artificial Intelligence", "Hardware Engineering", "LoRa", "Radar Systems", "Remote Health Monitoring", "Asset Tracking", "ESP32", "STM32", "nRF52", "Edge Computing", "DFM Optimization"]
+        "alumniOf": [
+            { "@type": "CollegeOrUniversity", "name": "Curtin University", "url": "https://www.curtin.edu.au/" },
+            { "@type": "CollegeOrUniversity", "name": "Osmania University", "url": "https://www.osmania.ac.in/" }
+        ],
+        "knowsAbout": ["Embedded Systems", "Internet of Things", "PCB Design", "Artificial Intelligence", "Hardware Engineering", "LoRa", "Radar Systems", "Remote Health Monitoring", "Asset Tracking", "ESP32", "STM32", "nRF52", "Edge Computing", "DFM Optimization", "Product Innovation", "Supply Chain Management", "TinyML", "Edge AI"]
     }
     </script>
     <!-- WebSite Schema -->
@@ -755,6 +759,67 @@
             color: rgba(255,255,255,0.5);
         }
 
+        /* ===== CREDENTIALS BAR ===== */
+        .credentials-bar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-top: 2rem;
+        }
+        .credential-chip {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.6rem;
+            letter-spacing: 0.08em;
+            padding: 0.45rem 0.9rem;
+            border-radius: 100px;
+            color: rgba(255,255,255,0.5);
+            text-transform: uppercase;
+        }
+
+        /* ===== THOUGHT LEADERSHIP TICKER ===== */
+        .thought-ticker {
+            padding: 3rem 3rem;
+            text-align: center;
+        }
+        .thought-ticker-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.6rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.2);
+            margin-bottom: 1.5rem;
+        }
+        .thought-ticker-grid {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .thought-card {
+            border-radius: 12px;
+            padding: 1.25rem 1.5rem;
+            text-align: left;
+            max-width: 280px;
+            transition: transform 0.3s;
+        }
+        .thought-card:hover { transform: translateY(-2px); }
+        .thought-card-title {
+            font-family: 'Instrument Serif', serif;
+            font-size: 1rem;
+            line-height: 1.3;
+            margin-bottom: 0.4rem;
+            color: rgba(255,255,255,0.75);
+        }
+        .thought-card-meta {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.55rem;
+            letter-spacing: 0.08em;
+            color: rgba(255,255,255,0.2);
+            text-transform: uppercase;
+        }
+
         /* ===== RESPONSIVE ===== */
         @media (max-width: 900px) {
             .about-grid { grid-template-columns: 1fr; gap: 3rem; }
@@ -812,7 +877,7 @@
             <div class="chapter-marker reveal">Chapter I</div>
             <div class="hero-tag liquid-glass reveal reveal-delay-1" style="border-radius:100px; width:fit-content;">Thinker &middot; Innovator &middot; Problem Solver &middot; Engineer &middot; CEO</div>
             <h1 class="hero-title reveal reveal-delay-2">I think in<br><em>circuits.</em></h1>
-            <p class="hero-subtitle reveal reveal-delay-3">Engineer by instinct. CEO by necessity. Innovator by obsession. I see problems others walk past — and build the hardware that solves them. 500+ projects. One relentless question: what if this could actually work?</p>
+            <p class="hero-subtitle reveal reveal-delay-3">Engineer by instinct. CEO by necessity. Innovator by obsession. 500+ projects delivered. 99.8% first-pass rate. Idea to production-ready hardware in 60 days. One relentless question: what if this could actually work?</p>
         </div>
         <div class="hero-scroll-indicator reveal reveal-delay-5">
             <span style="font-size:0.6rem; letter-spacing:0.2em; text-transform:uppercase; color:rgba(255,255,255,0.3);">Begin</span>
@@ -840,25 +905,31 @@
                     <div class="chapter-marker reveal">Chapter II</div>
                     <div class="about-label reveal">The Problem I Couldn't Ignore</div>
                     <h2 class="about-heading reveal reveal-delay-1">Brilliant ideas.<br>Dead <em>hardware.</em></h2>
-                    <p class="about-text reveal reveal-delay-2">I'm an engineer who thinks like a CEO. I saw brilliant founders with world-changing ideas — medical devices that could save lives, IoT sensors that could transform agriculture — and watched their hardware die between prototype and production. Thermal failures. Component obsolescence. Firmware that worked on the bench but froze in a 45&deg; warehouse. The problem wasn't talent. It was the gap between thinking and making.</p>
-                    <p class="about-text reveal reveal-delay-3" style="margin-top:1rem;">So I built Rapid Circuitry to close that gap. As an innovator, I asked: what if AI could compress weeks of PCB layout into hours? As a problem solver, I took full-stack ownership — schematic through compliance. As a CEO, I scaled it into a company that's delivered 500+ projects. The engineer in me still reviews every critical trace.</p>
+                    <p class="about-text reveal reveal-delay-2">Electronics engineer from Osmania University. Master's in Supply Chain & Logistics from Curtin University, Australia — where I studied how products actually move from factory to world. I spent years in Singapore learning operations and partnerships at scale before returning to India with a question that wouldn't leave me alone: why do brilliant hardware ideas keep dying between prototype and production?</p>
+                    <p class="about-text reveal reveal-delay-3" style="margin-top:1rem;">So I built Rapid Circuitry. As an innovator, I'm building AI tools that compress weeks of PCB layout into hours. As a problem solver, I own the full stack — schematic through compliance, 99.8% first-pass yield. As a CEO, I've scaled that into 500+ projects shipped in 60 days or less. The engineer in me still reviews every critical trace. The Ashoka Changemaker in me picks the projects where hardware changes lives — not just margins.</p>
+                    <div class="credentials-bar reveal reveal-delay-4">
+                        <span class="credential-chip liquid-glass">B.E. — Osmania University</span>
+                        <span class="credential-chip liquid-glass">M.Sc — Curtin University</span>
+                        <span class="credential-chip liquid-glass">Ashoka Changemaker</span>
+                        <span class="credential-chip liquid-glass">10+ Years Experience</span>
+                    </div>
                 </div>
                 <div class="about-stats">
                     <div class="stat-card liquid-glass reveal reveal-delay-2">
                         <div class="stat-number">500+</div>
-                        <div class="stat-label">Problems Solved</div>
+                        <div class="stat-label">Projects Shipped</div>
                     </div>
                     <div class="stat-card liquid-glass reveal reveal-delay-3">
-                        <div class="stat-number font-mono" style="font-size:2rem;">2020</div>
-                        <div class="stat-label">Founded in Hyderabad</div>
+                        <div class="stat-number">99.8%</div>
+                        <div class="stat-label">First-Pass Yield</div>
                     </div>
                     <div class="stat-card liquid-glass reveal reveal-delay-4">
-                        <div class="stat-number" style="font-size:2rem;">Idea&rarr;Scale</div>
-                        <div class="stat-label">Full-Stack Thinking</div>
+                        <div class="stat-number" style="font-size:2.2rem;">60 days</div>
+                        <div class="stat-label">Idea to Production</div>
                     </div>
                     <div class="stat-card liquid-glass reveal reveal-delay-5">
-                        <div class="stat-number" style="font-size:2rem;">AI+HW</div>
-                        <div class="stat-label">Innovation Engine</div>
+                        <div class="stat-number" style="font-size:2.2rem;">10+ yrs</div>
+                        <div class="stat-label">Product & Hardware</div>
                     </div>
                 </div>
             </div>
@@ -929,6 +1000,25 @@
             </div>
         </div>
     </section>
+
+    <!-- THOUGHT LEADERSHIP TICKER -->
+    <div class="thought-ticker reveal">
+        <div class="thought-ticker-label">What I'm thinking about</div>
+        <div class="thought-ticker-grid">
+            <div class="thought-card liquid-glass reveal reveal-delay-1">
+                <div class="thought-card-title">Robots Got Brains: The 2,070 TFLOPS Physical AI Stack</div>
+                <div class="thought-card-meta">NVIDIA GTC 2026 · Robotics</div>
+            </div>
+            <div class="thought-card liquid-glass reveal reveal-delay-2">
+                <div class="thought-card-title">When $4 Chips Run Language Models: Edge AI in 2026</div>
+                <div class="thought-card-meta">On-Device AI · TinyML</div>
+            </div>
+            <div class="thought-card liquid-glass reveal reveal-delay-3">
+                <div class="thought-card-title">A $1 MCU Now Has a Neural Processing Unit</div>
+                <div class="thought-card-meta">Texas Instruments · NPU</div>
+            </div>
+        </div>
+    </div>
 
     <!-- STORY BRIDGE: The Proof → The Lens -->
     <div class="story-bridge reveal">
