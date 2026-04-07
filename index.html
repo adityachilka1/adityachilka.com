@@ -379,24 +379,17 @@
             font-weight: 400;
         }
 
-        /* ===== FEATURED VIDEO ===== */
+        /* ===== PROOF / CASE STUDIES ===== */
         #featured {
-            padding: 8rem 3rem;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 6rem 3rem;
         }
         .featured-container {
-            max-width: 1100px;
+            max-width: 1200px;
             margin: 0 auto;
-        }
-        .featured-video-wrapper {
-            border-radius: 20px;
-            overflow: hidden;
-            aspect-ratio: 16/9;
-            position: relative;
-        }
-        .featured-video-wrapper video {
             width: 100%;
-            height: 100%;
-            object-fit: cover;
         }
         .featured-label {
             font-size: 0.7rem;
@@ -410,16 +403,74 @@
             font-family: 'Instrument Serif', serif;
             font-size: clamp(2rem, 4vw, 3.5rem);
             text-align: center;
-            margin-bottom: 3rem;
+            margin-bottom: 1rem;
             letter-spacing: -0.02em;
         }
         .featured-title em { font-style: italic; color: rgba(255,255,255,0.6); }
-        .featured-caption {
+        .featured-subtitle {
             text-align: center;
-            margin-top: 2rem;
-            color: rgba(255,255,255,0.4);
-            font-size: 0.85rem;
+            color: rgba(255,255,255,0.35);
+            font-size: 0.95rem;
             font-weight: 300;
+            margin-bottom: 3.5rem;
+            max-width: 550px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .proof-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+        .proof-card {
+            border-radius: 20px;
+            padding: 2.5rem 2rem;
+            min-height: 300px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .proof-card:hover { transform: translateY(-4px); }
+        .proof-card-domain {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.6rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.25);
+            margin-bottom: 1rem;
+        }
+        .proof-card-title {
+            font-family: 'Instrument Serif', serif;
+            font-size: 1.6rem;
+            line-height: 1.15;
+            margin-bottom: 0.75rem;
+        }
+        .proof-card-title em { font-style: italic; color: rgba(255,255,255,0.6); }
+        .proof-card-text {
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.4);
+            line-height: 1.7;
+            font-weight: 300;
+            flex: 1;
+        }
+        .proof-card-tech {
+            margin-top: 1.5rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        .proof-tech-tag {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.6rem;
+            letter-spacing: 0.05em;
+            padding: 0.3rem 0.6rem;
+            border-radius: 100px;
+            background: rgba(255,255,255,0.04);
+            color: rgba(255,255,255,0.35);
+        }
+        @media (max-width: 900px) {
+            .proof-grid { grid-template-columns: 1fr; }
         }
 
         /* ===== PHILOSOPHY ===== */
@@ -823,17 +874,59 @@
     <!-- ============================================ -->
     <!-- CHAPTER III: THE PROOF                       -->
     <!-- ============================================ -->
-    <section id="featured">
-        <div class="featured-container">
-            <div class="chapter-marker reveal" style="text-align:center;">Chapter III</div>
-            <div class="featured-label reveal">The Proof</div>
-            <h2 class="featured-title reveal reveal-delay-1">Where thinking meets <em>making</em></h2>
-            <div class="featured-video-wrapper liquid-glass reveal-scale reveal-delay-2">
-                <video id="featuredVideo" muted autoplay playsinline preload="auto" loop style="opacity:0;">
-                    <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260324_151826_c7218672-6e92-402c-9e45-f1e0f454bdc4.mp4" type="video/mp4">
-                </video>
+    <section id="featured" class="video-section">
+        <video class="video-bg" id="featuredVideo" muted autoplay playsinline preload="auto" loop>
+            <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260324_151826_c7218672-6e92-402c-9e45-f1e0f454bdc4.mp4" type="video/mp4">
+        </video>
+        <div class="video-overlay" style="background: radial-gradient(ellipse at center, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.9) 75%);"></div>
+        <div class="section-content">
+            <div class="featured-container">
+                <div class="chapter-marker reveal" style="text-align:center;">Chapter III</div>
+                <div class="featured-label reveal">The Proof</div>
+                <h2 class="featured-title reveal reveal-delay-1">Where thinking meets <em>making</em></h2>
+                <p class="featured-subtitle reveal reveal-delay-2">Every project is a problem solved end-to-end. Here's what it looks like when a thinker, engineer, and CEO are the same person.</p>
+                <div class="proof-grid">
+                    <div class="proof-card liquid-glass reveal reveal-delay-2">
+                        <div>
+                            <div class="proof-card-domain">Medical Devices</div>
+                            <h3 class="proof-card-title">Remote patient <em>monitoring</em></h3>
+                            <p class="proof-card-text">Designed a wearable cardiac monitor for rural clinics where specialists are 200km away. The problem: existing devices needed Wi-Fi. The solution: LoRa-based edge processing that transmits only anomalies, cutting bandwidth 95% while catching critical cardiac events in real time.</p>
+                        </div>
+                        <div class="proof-card-tech">
+                            <span class="proof-tech-tag">nRF52</span>
+                            <span class="proof-tech-tag">LoRa</span>
+                            <span class="proof-tech-tag">Edge AI</span>
+                            <span class="proof-tech-tag">BLE</span>
+                        </div>
+                    </div>
+                    <div class="proof-card liquid-glass reveal reveal-delay-3">
+                        <div>
+                            <div class="proof-card-domain">Industrial IoT</div>
+                            <h3 class="proof-card-title">GPS asset <em>tracking</em> at scale</h3>
+                            <p class="proof-card-text">Built a fleet tracking system for logistics across Indian highways — 45°C heat, unreliable cellular, vehicles offline for hours. Engineered an ultra-low-power GPS+LoRa+LTE-M hybrid that runs 3 years on a single battery and survives monsoons.</p>
+                        </div>
+                        <div class="proof-card-tech">
+                            <span class="proof-tech-tag">STM32</span>
+                            <span class="proof-tech-tag">GPS</span>
+                            <span class="proof-tech-tag">LTE-M</span>
+                            <span class="proof-tech-tag">LoRa</span>
+                        </div>
+                    </div>
+                    <div class="proof-card liquid-glass reveal reveal-delay-4">
+                        <div>
+                            <div class="proof-card-domain">AI + Hardware</div>
+                            <h3 class="proof-card-title">AI-powered <em>PCB design</em></h3>
+                            <p class="proof-card-text">Building the tool I wished existed: an AI platform that takes a hardware idea from schematic to production-ready layout. Automated trace routing, component placement, and DRC — compressing weeks of manual work into hours. This is the future of hardware engineering.</p>
+                        </div>
+                        <div class="proof-card-tech">
+                            <span class="proof-tech-tag">AI/ML</span>
+                            <span class="proof-tech-tag">EDA</span>
+                            <span class="proof-tech-tag">KiCad</span>
+                            <span class="proof-tech-tag">Python</span>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <p class="featured-caption reveal reveal-delay-3">From first-principles thinking to factory floor. Every circuit is a hypothesis tested, every product a problem solved — engineered in Hyderabad, deployed worldwide.</p>
         </div>
     </section>
 
@@ -1046,16 +1139,10 @@
             videoEl.play().catch(function(){});
         }
 
-        // Init all background videos
-        ['heroVideo', 'aboutVideo', 'philVideo', 'servicesVideo'].forEach(function(id) {
+        // Init all background videos (including featured, now a background)
+        ['heroVideo', 'aboutVideo', 'featuredVideo', 'philVideo', 'servicesVideo'].forEach(function(id) {
             initVideoFade(document.getElementById(id));
         });
-
-        // Featured video (inline, not background)
-        var featVid = document.getElementById('featuredVideo');
-        if (featVid) {
-            initVideoFade(featVid);
-        }
 
         // === SCROLL-TRIGGERED REVEAL ===
         var revealEls = document.querySelectorAll('.reveal, .reveal-scale');
