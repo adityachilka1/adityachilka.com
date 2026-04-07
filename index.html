@@ -820,6 +820,38 @@
             text-transform: uppercase;
         }
 
+        /* ===== PROFILE PHOTO ===== */
+        .profile-photo-wrapper {
+            position: relative;
+            width: 120px;
+            height: 120px;
+            margin-bottom: 1.5rem;
+        }
+        .profile-photo {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            display: block;
+            position: relative;
+            z-index: 1;
+            border: 2px solid rgba(255,255,255,0.15);
+            box-shadow: 0 0 40px rgba(255,255,255,0.08), 0 0 80px rgba(100,140,255,0.06);
+        }
+        .profile-photo-wrapper::before {
+            content: '';
+            position: absolute;
+            inset: -3px;
+            border-radius: 50%;
+            background: conic-gradient(from 0deg, rgba(255,255,255,0.3), rgba(100,140,255,0.2), rgba(255,255,255,0.05), rgba(100,140,255,0.2), rgba(255,255,255,0.3));
+            z-index: 0;
+            animation: photoGlow 6s linear infinite;
+        }
+        @keyframes photoGlow {
+            0% { filter: hue-rotate(0deg); }
+            100% { filter: hue-rotate(360deg); }
+        }
+
         /* ===== RESPONSIVE ===== */
         @media (max-width: 900px) {
             .about-grid { grid-template-columns: 1fr; gap: 3rem; }
@@ -834,6 +866,8 @@
         @media (max-width: 600px) {
             .hero-title { font-size: clamp(2.5rem, 12vw, 4rem); }
             .about-stats { grid-template-columns: 1fr; }
+            .profile-photo-wrapper { width: 90px; height: 90px; }
+            .profile-photo { width: 90px; height: 90px; }
             .footer-line { flex-direction: column; gap: 0.5rem; }
             .story-bridge-text { font-size: 1.1rem; }
         }
@@ -903,6 +937,9 @@
             <div class="about-grid">
                 <div>
                     <div class="chapter-marker reveal">Chapter II</div>
+                    <div class="profile-photo-wrapper reveal reveal-delay-1">
+                        <img src="photo.jpg" alt="Aditya Chilka — Founder & CEO of Rapid Circuitry" class="profile-photo" loading="lazy" width="120" height="120">
+                    </div>
                     <div class="about-label reveal">The Problem I Couldn't Ignore</div>
                     <h2 class="about-heading reveal reveal-delay-1">Brilliant ideas.<br>Dead <em>hardware.</em></h2>
                     <p class="about-text reveal reveal-delay-2">Electronics engineer from Osmania University. Master's in Supply Chain & Logistics from Curtin University, Australia — where I studied how products actually move from factory to world. I spent years in Singapore learning operations and partnerships at scale before returning to India with a question that wouldn't leave me alone: why do brilliant hardware ideas keep dying between prototype and production?</p>
