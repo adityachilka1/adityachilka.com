@@ -98,881 +98,820 @@
             inset: 0;
             border-radius: inherit;
             padding: 1.4px;
-            background: linear-gradient(180deg,
-                rgba(255,255,255,0.45) 0%, rgba(255,255,255,0.15) 20%,
-                rgba(255,255,255,0) 40%, rgba(255,255,255,0) 60%,
-                rgba(255,255,255,0.15) 80%, rgba(255,255,255,0.45) 100%);
+            background: linear-gradient(
+                180deg,
+                rgba(255, 255, 255, 0.45) 0%,
+                rgba(255, 255, 255, 0.15) 20%,
+                rgba(255, 255, 255, 0) 40%,
+                rgba(255, 255, 255, 0) 60%,
+                rgba(255, 255, 255, 0.15) 80%,
+                rgba(255, 255, 255, 0.45) 100%
+            );
             -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
             -webkit-mask-composite: xor;
             mask-composite: exclude;
             pointer-events: none;
         }
 
-        /* ===== HERO ===== */
-        .hero {
-            min-height: 100vh;
+        /* ===== TYPOGRAPHY ===== */
+        .font-serif { font-family: 'Instrument Serif', serif; }
+        .font-serif-italic { font-family: 'Instrument Serif', serif; font-style: italic; }
+        .font-mono { font-family: 'JetBrains Mono', monospace; }
+
+        /* ===== VIDEO SECTION BASE ===== */
+        .video-section {
             position: relative;
+            overflow: hidden;
             display: flex;
             flex-direction: column;
-            overflow: hidden;
         }
-        .hero-bg {
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(ellipse at 50% 30%, rgba(0,240,255,0.06) 0%, transparent 60%),
-                        radial-gradient(ellipse at 80% 70%, rgba(168,85,247,0.04) 0%, transparent 50%);
-        }
-        .hero-canvas {
+        .video-bg {
             position: absolute;
             inset: 0;
             width: 100%;
             height: 100%;
+            object-fit: cover;
+            object-position: center bottom;
+            opacity: 0;
+            z-index: 0;
+        }
+        .video-overlay {
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+        }
+        .section-content {
+            position: relative;
+            z-index: 2;
         }
 
-        /* Nav */
-        .nav {
-            position: relative;
-            z-index: 20;
-            padding: 24px;
+        /* ===== ANIMATIONS ===== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        .nav-pill {
-            max-width: 900px;
-            margin: 0 auto;
-            border-radius: 9999px;
-            padding: 12px 24px;
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .reveal-delay-1 { transition-delay: 0.1s; }
+        .reveal-delay-2 { transition-delay: 0.2s; }
+        .reveal-delay-3 { transition-delay: 0.3s; }
+        .reveal-delay-4 { transition-delay: 0.4s; }
+        .reveal-delay-5 { transition-delay: 0.5s; }
+        .reveal-delay-6 { transition-delay: 0.6s; }
+
+        .reveal-scale {
+            opacity: 0;
+            transform: scale(0.92);
+            transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal-scale.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* ===== NAV ===== */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            padding: 1.25rem 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            transition: background 0.5s, backdrop-filter 0.5s;
         }
-        .nav-left { display: flex; align-items: center; gap: 8px; }
+        .nav.scrolled {
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
         .nav-logo {
             font-family: 'Instrument Serif', serif;
-            font-size: 1.25rem;
+            font-size: 1.4rem;
             color: #fff;
-            font-weight: 400;
-        }
-        .nav-links { display: flex; gap: 32px; margin-left: 32px; }
-        .nav-links a {
-            color: rgba(255,255,255,0.7);
             text-decoration: none;
-            font-size: 0.85rem;
-            font-weight: 500;
+            letter-spacing: -0.02em;
+        }
+        .nav-links { display: flex; gap: 2rem; align-items: center; }
+        .nav-links a {
+            color: rgba(255,255,255,0.6);
+            text-decoration: none;
+            font-size: 0.8rem;
+            font-weight: 400;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
             transition: color 0.3s;
         }
         .nav-links a:hover { color: #fff; }
-        .nav-right { display: flex; align-items: center; gap: 16px; }
-        .nav-btn-text {
-            color: #fff;
-            font-size: 0.85rem;
-            font-weight: 500;
-            text-decoration: none;
-            background: none;
-            border: none;
-            cursor: pointer;
-        }
-        .nav-btn-glass {
-            border-radius: 9999px;
-            padding: 8px 24px;
-            color: #fff;
-            font-size: 0.85rem;
-            font-weight: 500;
-            cursor: pointer;
-            text-decoration: none;
-        }
 
-        /* Hero Content */
-        .hero-content {
-            position: relative;
-            z-index: 10;
-            flex: 1;
+        /* ===== HERO ===== */
+        #hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 0 3rem 4rem;
+        }
+        .hero-title {
+            font-family: 'Instrument Serif', serif;
+            font-size: clamp(3.5rem, 9vw, 8rem);
+            line-height: 0.95;
+            letter-spacing: -0.03em;
+            margin-bottom: 1.5rem;
+            font-weight: 400;
+        }
+        .hero-title em {
+            font-family: 'Instrument Serif', serif;
+            font-style: italic;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        .hero-subtitle {
+            font-size: 1rem;
+            color: rgba(255,255,255,0.5);
+            font-weight: 300;
+            letter-spacing: 0.05em;
+            max-width: 520px;
+        }
+        .hero-tag {
+            display: inline-block;
+            padding: 0.4rem 1rem;
+            border-radius: 100px;
+            font-size: 0.7rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            font-weight: 500;
+            margin-bottom: 2rem;
+            color: rgba(255,255,255,0.7);
+        }
+        .hero-scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            right: 3rem;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            padding: 48px 24px;
-            text-align: center;
-            transform: translateY(-5%);
+            gap: 0.5rem;
+            z-index: 2;
         }
-        .hero-photo {
-            width: 140px;
-            height: 140px;
-            border-radius: 50%;
-            overflow: hidden;
-            margin-bottom: 32px;
-            box-shadow: 0 0 40px rgba(0,240,255,0.15), 0 0 80px rgba(0,240,255,0.05);
-            position: relative;
+        .scroll-line {
+            width: 1px;
+            height: 60px;
+            background: linear-gradient(to bottom, rgba(255,255,255,0.4), transparent);
+            animation: scrollPulse 2s ease-in-out infinite;
         }
-        .hero-photo img {
+        @keyframes scrollPulse {
+            0%, 100% { opacity: 0.4; transform: scaleY(1); }
+            50% { opacity: 1; transform: scaleY(1.2); }
+        }
+
+        /* ===== ABOUT ===== */
+        #about {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 6rem 3rem;
+        }
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            max-width: 1200px;
+            margin: 0 auto;
             width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        .hero-photo-ring {
-            position: absolute;
-            inset: -4px;
-            border-radius: 50%;
-            padding: 2px;
-            background: linear-gradient(135deg, rgba(0,240,255,0.5), rgba(168,85,247,0.5), rgba(0,240,255,0.2));
-            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor;
-            mask-composite: exclude;
-            animation: spin-slow 8s linear infinite;
-        }
-        @keyframes spin-slow { to { transform: rotate(360deg); } }
-
-        .hero-heading {
-            font-family: 'Instrument Serif', serif;
-            font-size: clamp(3.5rem, 9vw, 8rem);
-            font-weight: 400;
-            color: #fff;
-            letter-spacing: -0.02em;
-            line-height: 1.05;
-            margin-bottom: 32px;
-        }
-        .hero-heading em {
-            font-style: italic;
-            color: rgba(255,255,255,0.5);
-        }
-
-        .hero-input-wrap {
-            max-width: 480px;
-            width: 100%;
-            border-radius: 9999px;
-            padding: 4px 4px 4px 24px;
-            display: flex;
             align-items: center;
-            gap: 12px;
-            margin-bottom: 20px;
         }
-        .hero-input {
-            flex: 1;
-            background: transparent;
-            border: none;
-            outline: none;
-            color: #fff;
-            font-size: 0.9rem;
-            font-family: inherit;
-        }
-        .hero-input::placeholder { color: rgba(255,255,255,0.35); }
-        .hero-submit {
-            background: #fff;
-            border: none;
-            border-radius: 50%;
-            width: 44px;
-            height: 44px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            flex-shrink: 0;
-            transition: transform 0.2s, box-shadow 0.3s;
-        }
-        .hero-submit:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 20px rgba(255,255,255,0.2);
-        }
-        .hero-submit svg { width: 20px; height: 20px; }
-
-        .hero-subtitle {
-            color: rgba(255,255,255,0.5);
-            font-size: 0.85rem;
-            line-height: 1.7;
-            max-width: 420px;
-            margin-bottom: 24px;
-        }
-        .hero-manifesto {
-            border-radius: 9999px;
-            padding: 12px 32px;
-            color: #fff;
-            font-size: 0.85rem;
-            font-weight: 500;
-            cursor: pointer;
-            text-decoration: none;
-            transition: background 0.3s;
-        }
-        .hero-manifesto:hover { background: rgba(255,255,255,0.05); }
-
-        /* Hero Social Footer */
-        .hero-social {
-            position: relative;
-            z-index: 10;
-            display: flex;
-            justify-content: center;
-            gap: 16px;
-            padding-bottom: 48px;
-        }
-        .hero-social a {
-            border-radius: 9999px;
-            padding: 16px;
-            color: rgba(255,255,255,0.7);
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .hero-social a:hover { color: #fff; background: rgba(255,255,255,0.05); }
-        .hero-social svg { width: 20px; height: 20px; }
-
-        /* ===== ABOUT SECTION ===== */
-        .about {
-            background: #000;
-            padding: 128px 24px 40px;
-            overflow: hidden;
-            position: relative;
-        }
-        .about::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(ellipse at top, rgba(255,255,255,0.03) 0%, transparent 70%);
-            pointer-events: none;
-        }
-        .about-inner { max-width: 1100px; margin: 0 auto; position: relative; }
         .about-label {
-            color: rgba(255,255,255,0.4);
-            font-size: 0.8rem;
+            font-size: 0.7rem;
             letter-spacing: 0.15em;
             text-transform: uppercase;
-            margin-bottom: 24px;
+            color: rgba(255,255,255,0.4);
+            margin-bottom: 1.5rem;
         }
         .about-heading {
             font-family: 'Instrument Serif', serif;
-            font-size: clamp(2.2rem, 5.5vw, 4.5rem);
-            font-weight: 400;
-            color: #fff;
-            line-height: 1.1;
+            font-size: clamp(2.5rem, 4.5vw, 4rem);
+            line-height: 1.05;
             letter-spacing: -0.02em;
+            margin-bottom: 2rem;
         }
         .about-heading em {
-            font-family: 'Instrument Serif', serif;
             font-style: italic;
-            color: rgba(255,255,255,0.5);
+            color: rgba(255,255,255,0.6);
+        }
+        .about-text {
+            font-size: 1rem;
+            color: rgba(255,255,255,0.55);
+            line-height: 1.8;
+            font-weight: 300;
+        }
+        .about-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+        .stat-card {
+            border-radius: 16px;
+            padding: 2rem 1.5rem;
+        }
+        .stat-number {
+            font-family: 'Instrument Serif', serif;
+            font-size: 3rem;
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+        .stat-label {
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.4);
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            font-weight: 400;
         }
 
         /* ===== FEATURED VIDEO ===== */
-        .featured-video {
-            background: #000;
-            padding: 24px 24px 80px;
-            overflow: hidden;
+        #featured {
+            padding: 8rem 3rem;
         }
-        .featured-video-inner {
+        .featured-container {
             max-width: 1100px;
             margin: 0 auto;
-            border-radius: 24px;
-            overflow: hidden;
-            position: relative;
-            aspect-ratio: 16/9;
         }
-        .featured-video-inner img,
-        .featured-video-inner video {
+        .featured-video-wrapper {
+            border-radius: 20px;
+            overflow: hidden;
+            aspect-ratio: 16/9;
+            position: relative;
+        }
+        .featured-video-wrapper video {
             width: 100%;
             height: 100%;
             object-fit: cover;
         }
-        .featured-video-gradient {
-            position: absolute;
-            bottom: 0; left: 0; right: 0;
-            height: 60%;
-            background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
-            pointer-events: none;
-        }
-        .featured-video-overlay {
-            position: absolute;
-            bottom: 0; left: 0; right: 0;
-            padding: 24px;
-            display: flex;
-            align-items: flex-end;
-            justify-content: space-between;
-            gap: 24px;
-        }
-        .featured-card {
-            border-radius: 16px;
-            padding: 24px 28px;
-            max-width: 420px;
-        }
-        .featured-card-label {
-            color: rgba(255,255,255,0.5);
-            font-size: 0.65rem;
+        .featured-label {
+            font-size: 0.7rem;
             letter-spacing: 0.15em;
             text-transform: uppercase;
-            margin-bottom: 12px;
+            color: rgba(255,255,255,0.4);
+            margin-bottom: 1rem;
+            text-align: center;
         }
-        .featured-card-text {
-            color: #fff;
-            font-size: 0.9rem;
-            line-height: 1.7;
-        }
-        .featured-explore {
-            border-radius: 9999px;
-            padding: 12px 32px;
-            color: #fff;
-            font-size: 0.85rem;
-            font-weight: 500;
-            text-decoration: none;
-            white-space: nowrap;
-            flex-shrink: 0;
-            transition: background 0.3s;
-        }
-        .featured-explore:hover { background: rgba(255,255,255,0.05); }
-
-        /* ===== PHILOSOPHY / INNOVATION x VISION ===== */
-        .philosophy {
-            background: #000;
-            padding: 112px 24px 160px;
-            overflow: hidden;
-        }
-        .philosophy-inner { max-width: 1100px; margin: 0 auto; }
-        .philosophy-heading {
+        .featured-title {
             font-family: 'Instrument Serif', serif;
-            font-size: clamp(2.8rem, 6vw, 5.5rem);
-            font-weight: 400;
-            color: #fff;
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            text-align: center;
+            margin-bottom: 3rem;
             letter-spacing: -0.02em;
-            margin-bottom: 80px;
         }
-        .philosophy-heading em {
-            font-style: italic;
-            color: rgba(255,255,255,0.35);
+        .featured-title em { font-style: italic; color: rgba(255,255,255,0.6); }
+        .featured-caption {
+            text-align: center;
+            margin-top: 2rem;
+            color: rgba(255,255,255,0.4);
+            font-size: 0.85rem;
+            font-weight: 300;
+        }
+
+        /* ===== PHILOSOPHY ===== */
+        #philosophy {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 6rem 3rem;
+        }
+        .philosophy-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
         }
         .philosophy-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 48px;
-            align-items: start;
+            gap: 2rem;
+            margin-top: 3rem;
         }
-        .philosophy-visual {
-            border-radius: 24px;
-            overflow: hidden;
-            aspect-ratio: 4/3;
-            position: relative;
+        .philosophy-card {
+            border-radius: 20px;
+            padding: 3rem 2.5rem;
+            min-height: 320px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
         }
-        .philosophy-visual img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        .philosophy-text { display: flex; flex-direction: column; gap: 32px; padding-top: 16px; }
-        .philosophy-block {}
-        .philosophy-block-label {
-            color: rgba(255,255,255,0.4);
+        .philosophy-card-number {
+            font-family: 'JetBrains Mono', monospace;
             font-size: 0.7rem;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            margin-bottom: 16px;
+            color: rgba(255,255,255,0.3);
+            letter-spacing: 0.1em;
+            margin-bottom: 1rem;
         }
-        .philosophy-block-text {
-            color: rgba(255,255,255,0.65);
-            font-size: 1rem;
-            line-height: 1.8;
+        .philosophy-card-title {
+            font-family: 'Instrument Serif', serif;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            line-height: 1.1;
         }
-        .philosophy-divider {
-            width: 100%;
-            height: 1px;
-            background: rgba(255,255,255,0.08);
+        .philosophy-card-title em { font-style: italic; color: rgba(255,255,255,0.6); }
+        .philosophy-card-text {
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.45);
+            line-height: 1.7;
+            font-weight: 300;
         }
+        .philosophy-heading {
+            font-family: 'Instrument Serif', serif;
+            font-size: clamp(2.5rem, 4.5vw, 4rem);
+            letter-spacing: -0.02em;
+            text-align: center;
+        }
+        .philosophy-heading em { font-style: italic; color: rgba(255,255,255,0.6); }
 
         /* ===== SERVICES ===== */
-        .services {
-            background: #000;
-            padding: 112px 24px 160px;
-            overflow: hidden;
-            position: relative;
-        }
-        .services::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(ellipse at center, rgba(255,255,255,0.02) 0%, transparent 60%);
-            pointer-events: none;
-        }
-        .services-inner { max-width: 1100px; margin: 0 auto; position: relative; }
-        .services-header {
+        #services {
+            min-height: 100vh;
             display: flex;
-            justify-content: space-between;
-            align-items: baseline;
-            margin-bottom: 48px;
+            align-items: center;
+            padding: 6rem 3rem;
         }
-        .services-title {
+        .services-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+        .services-heading {
             font-family: 'Instrument Serif', serif;
-            font-size: clamp(1.8rem, 4vw, 3.2rem);
-            font-weight: 400;
-            color: #fff;
+            font-size: clamp(2.5rem, 4.5vw, 4rem);
             letter-spacing: -0.02em;
+            margin-bottom: 1rem;
         }
-        .services-label {
+        .services-heading em { font-style: italic; color: rgba(255,255,255,0.6); }
+        .services-sub {
+            font-size: 1rem;
             color: rgba(255,255,255,0.4);
-            font-size: 0.8rem;
+            font-weight: 300;
+            margin-bottom: 3.5rem;
+            max-width: 500px;
         }
         .services-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 24px;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
         }
         .service-card {
-            border-radius: 24px;
-            overflow: hidden;
-            transition: transform 0.4s ease;
+            border-radius: 16px;
+            padding: 2.5rem 2rem;
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s;
         }
-        .service-card:hover { transform: translateY(-4px); }
-        .service-card-visual {
-            aspect-ratio: 16/10;
-            position: relative;
-            overflow: hidden;
+        .service-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.4);
         }
-        .service-card-visual img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.7s ease;
+        .service-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            background: rgba(255,255,255,0.04);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
         }
-        .service-card:hover .service-card-visual img { transform: scale(1.05); }
-        .service-card-visual::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(to top, rgba(0,0,0,0.5), transparent);
+        .service-icon svg {
+            width: 20px;
+            height: 20px;
+            stroke: rgba(255,255,255,0.5);
+            fill: none;
+            stroke-width: 1.5;
+            stroke-linecap: round;
+            stroke-linejoin: round;
         }
-        .service-card-body { padding: 24px 28px; }
-        .service-card-top {
+        .service-title {
+            font-family: 'Instrument Serif', serif;
+            font-size: 1.5rem;
+            margin-bottom: 0.75rem;
+            letter-spacing: -0.01em;
+        }
+        .service-text {
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.4);
+            line-height: 1.7;
+            font-weight: 300;
+        }
+
+        /* ===== CONTACT / FOOTER ===== */
+        #contact {
+            padding: 8rem 3rem 4rem;
+            text-align: center;
+        }
+        .contact-heading {
+            font-family: 'Instrument Serif', serif;
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            letter-spacing: -0.02em;
+            margin-bottom: 1.5rem;
+        }
+        .contact-heading em { font-style: italic; color: rgba(255,255,255,0.6); }
+        .contact-text {
+            color: rgba(255,255,255,0.4);
+            font-size: 1rem;
+            font-weight: 300;
+            margin-bottom: 2.5rem;
+        }
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+        .contact-links a {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.7rem 1.4rem;
+            border-radius: 100px;
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            font-size: 0.8rem;
+            letter-spacing: 0.05em;
+            transition: color 0.3s, background 0.3s;
+        }
+        .contact-links a:hover {
+            color: #fff;
+            background: rgba(255,255,255,0.05);
+        }
+        .contact-links a svg {
+            width: 16px; height: 16px;
+            stroke: currentColor; fill: none;
+            stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round;
+        }
+        .footer-line {
+            margin-top: 6rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.06);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 16px;
         }
-        .service-card-tag {
-            color: rgba(255,255,255,0.4);
-            font-size: 0.65rem;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
+        .footer-copy {
+            font-size: 0.7rem;
+            color: rgba(255,255,255,0.25);
+            letter-spacing: 0.05em;
         }
-        .service-card-arrow {
-            width: 32px; height: 32px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .service-card-arrow svg { width: 14px; height: 14px; color: #fff; }
-        .service-card h3 {
-            font-family: 'Instrument Serif', serif;
-            font-size: 1.4rem;
-            font-weight: 400;
-            color: #fff;
-            margin-bottom: 8px;
-        }
-        .service-card p {
-            color: rgba(255,255,255,0.45);
-            font-size: 0.85rem;
-            line-height: 1.7;
-        }
-
-        /* ===== CONNECT / FOOTER ===== */
-        .connect {
-            background: #000;
-            padding: 80px 24px 48px;
-            text-align: center;
-        }
-        .connect-inner { max-width: 600px; margin: 0 auto; }
-        .connect-heading {
-            font-family: 'Instrument Serif', serif;
-            font-size: clamp(2rem, 4vw, 3rem);
-            font-weight: 400;
-            color: #fff;
-            margin-bottom: 16px;
-        }
-        .connect-heading em { font-style: italic; color: rgba(255,255,255,0.5); }
-        .connect-text {
-            color: rgba(255,255,255,0.5);
-            font-size: 0.95rem;
-            line-height: 1.7;
-            margin-bottom: 32px;
-        }
-        .connect-email {
-            display: inline-flex;
-            align-items: center;
-            gap: 12px;
-            border-radius: 9999px;
-            padding: 14px 32px;
-            color: #fff;
+        .footer-loc {
+            font-size: 0.7rem;
+            color: rgba(255,255,255,0.25);
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.9rem;
-            text-decoration: none;
-            transition: all 0.3s;
-        }
-        .connect-email:hover { background: rgba(255,255,255,0.05); }
-
-        .connect-social {
-            display: flex;
-            justify-content: center;
-            gap: 12px;
-            margin-top: 48px;
-            margin-bottom: 48px;
-        }
-        .connect-social a {
-            border-radius: 9999px;
-            padding: 14px;
-            color: rgba(255,255,255,0.6);
-            transition: all 0.3s;
-            display: flex;
-            text-decoration: none;
-        }
-        .connect-social a:hover { color: #fff; background: rgba(255,255,255,0.05); }
-        .connect-social svg { width: 18px; height: 18px; }
-
-        .footer-line {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.65rem;
-            color: rgba(255,255,255,0.2);
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            padding-top: 32px;
-            border-top: 1px solid rgba(255,255,255,0.05);
+            letter-spacing: 0.05em;
         }
 
-        /* ===== ANIMATIONS ===== */
-        .fade-up {
-            opacity: 0;
-            transform: translateY(40px);
-            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        /* ===== DIVIDER ===== */
+        .section-divider {
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08) 20%, rgba(255,255,255,0.08) 80%, transparent);
         }
-        .fade-up.visible { opacity: 1; transform: translateY(0); }
-        .fade-up-d1 { transition-delay: 0.1s; }
-        .fade-up-d2 { transition-delay: 0.2s; }
-        .fade-up-d3 { transition-delay: 0.3s; }
 
         /* ===== RESPONSIVE ===== */
-        @media (max-width: 768px) {
-            .nav-links { display: none; }
-            .hero-heading { font-size: clamp(2.8rem, 10vw, 4rem); }
+        @media (max-width: 900px) {
+            .about-grid { grid-template-columns: 1fr; gap: 3rem; }
             .philosophy-grid { grid-template-columns: 1fr; }
             .services-grid { grid-template-columns: 1fr; }
-            .services-label { display: none; }
-            .featured-video-overlay { flex-direction: column; padding: 16px; }
-            .featured-card { max-width: 100%; }
+            .nav-links { display: none; }
+            #hero { padding: 0 1.5rem 3rem; }
+            #about, #philosophy, #services, #featured, #contact { padding-left: 1.5rem; padding-right: 1.5rem; }
+        }
+        @media (max-width: 600px) {
+            .hero-title { font-size: clamp(2.5rem, 12vw, 4rem); }
+            .about-stats { grid-template-columns: 1fr; }
+            .footer-line { flex-direction: column; gap: 0.5rem; }
         }
     </style>
 </head>
 <body>
 
-<!-- ===== HERO ===== -->
-<section class="hero">
-    <div class="hero-bg"></div>
-    <canvas class="hero-canvas" id="particleCanvas"></canvas>
-
-    <!-- Nav -->
-    <nav class="nav">
-        <div class="nav-pill liquid-glass">
-            <div class="nav-left">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
-                <span class="nav-logo">Aditya Chilka</span>
-                <div class="nav-links">
-                    <a href="#about">About</a>
-                    <a href="#work">Work</a>
-                    <a href="#approach">Approach</a>
-                    <a href="#services">Capabilities</a>
-                </div>
-            </div>
-            <div class="nav-right">
-                <a href="https://rapidcircuitry.com" target="_blank" rel="noopener" class="nav-btn-text">Rapid Circuitry</a>
-                <a href="mailto:aditya@rapidcircuitry.com" class="nav-btn-glass liquid-glass">Contact</a>
-            </div>
+    <!-- NAV -->
+    <nav class="nav" id="mainNav">
+        <a href="#hero" class="nav-logo">Aditya Chilka</a>
+        <div class="nav-links">
+            <a href="#about">About</a>
+            <a href="#philosophy">Vision</a>
+            <a href="#services">Work</a>
+            <a href="#contact">Contact</a>
         </div>
     </nav>
 
-    <!-- Hero Content -->
-    <div class="hero-content">
-        <div class="hero-photo">
-            <div class="hero-photo-ring"></div>
-            <img src="photo.jpg" alt="Aditya Chilka" width="140" height="140">
+    <!-- SECTION 1: HERO -->
+    <section id="hero" class="video-section">
+        <video class="video-bg" id="heroVideo" muted autoplay playsinline preload="auto" loop>
+            <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260405_074625_a81f018a-956b-43fb-9aee-4d1508e30e6a.mp4" type="video/mp4">
+        </video>
+        <div class="video-overlay" style="background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.3) 40%, rgba(0,0,0,0.15) 100%);"></div>
+        <div class="section-content" style="flex:1; display:flex; flex-direction:column; justify-content:flex-end;">
+            <div class="hero-tag liquid-glass reveal" style="border-radius:100px; width:fit-content;">Founder & CEO, Rapid Circuitry</div>
+            <h1 class="hero-title reveal reveal-delay-1">Building the<br><em>future</em> of<br>hardware.</h1>
+            <p class="hero-subtitle reveal reveal-delay-2">From idea to production-ready PCB — using AI to make hardware development faster, smarter, and accessible to every engineer.</p>
         </div>
-        <h1 class="hero-heading">
-            Engineer it, <em>then ship.</em>
-        </h1>
-        <div class="hero-input-wrap liquid-glass">
-            <input type="email" class="hero-input" placeholder="Enter your email for updates">
-            <button class="hero-submit" aria-label="Subscribe">
-                <svg viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-            </button>
+        <div class="hero-scroll-indicator reveal reveal-delay-4">
+            <span style="font-size:0.6rem; letter-spacing:0.2em; text-transform:uppercase; color:rgba(255,255,255,0.3);">Scroll</span>
+            <div class="scroll-line"></div>
         </div>
-        <p class="hero-subtitle">
-            Founder & CEO of Rapid Circuitry. I build AI-powered tools that take
-            electronic products from idea to production-ready PCB &mdash; faster
-            than anyone thought possible.
-        </p>
-        <a href="#about" class="hero-manifesto liquid-glass">Read my story</a>
-    </div>
+    </section>
 
-    <!-- Social Footer -->
-    <div class="hero-social">
-        <a href="https://www.linkedin.com/in/adityachilka" target="_blank" rel="noopener" class="liquid-glass" aria-label="LinkedIn">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-        </a>
-        <a href="https://www.instagram.com/adityachilka/" target="_blank" rel="noopener" class="liquid-glass" aria-label="Instagram">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
-        </a>
-        <a href="https://peerlist.io/adityachilka" target="_blank" rel="noopener" class="liquid-glass" aria-label="Peerlist">
-            <svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/><text x="12" y="16" text-anchor="middle" font-size="11" font-weight="bold" fill="currentColor">P</text></svg>
-        </a>
-    </div>
-</section>
+    <div class="section-divider"></div>
 
-<!-- ===== ABOUT ===== -->
-<section class="about" id="about">
-    <div class="about-inner">
-        <p class="about-label fade-up">About Me</p>
-        <h2 class="about-heading fade-up fade-up-d1">
-            Pioneering <em>hardware</em> for<br>
-            minds that <em>create, build,</em> and <em>innovate.</em>
-        </h2>
-    </div>
-</section>
-
-<!-- ===== FEATURED VIDEO / MISSION ===== -->
-<section class="featured-video" id="work">
-    <div class="featured-video-inner fade-up">
-        <img src="photo.jpg" alt="Rapid Circuitry Lab" style="filter: brightness(0.6) saturate(0.8);">
-        <div class="featured-video-gradient"></div>
-        <div class="featured-video-overlay">
-            <div class="featured-card liquid-glass">
-                <div class="featured-card-label">Our Mission</div>
-                <p class="featured-card-text">
-                    We believe every breakthrough device starts as an impossible problem.
-                    At Rapid Circuitry, we compress months of hardware development into weeks &mdash;
-                    using AI, deep engineering expertise, and relentless iteration to ship
-                    products that matter.
-                </p>
-            </div>
-            <a href="https://rapidcircuitry.com" target="_blank" rel="noopener" class="featured-explore liquid-glass">
-                Explore more &rarr;
-            </a>
-        </div>
-    </div>
-</section>
-
-<!-- ===== PHILOSOPHY ===== -->
-<section class="philosophy" id="approach">
-    <div class="philosophy-inner">
-        <h2 class="philosophy-heading fade-up">
-            Innovation <em>x</em> Engineering
-        </h2>
-        <div class="philosophy-grid">
-            <div class="philosophy-visual fade-up" style="background: linear-gradient(135deg, #0a0f1e, #1a1040); display: flex; align-items: center; justify-content: center;">
-                <svg width="120" height="120" viewBox="0 0 120 120" fill="none" style="opacity: 0.6;">
-                    <rect x="10" y="10" width="100" height="100" rx="8" stroke="rgba(0,240,255,0.3)" stroke-width="1"/>
-                    <line x1="30" y1="10" x2="30" y2="110" stroke="rgba(0,240,255,0.1)" stroke-width="0.5"/>
-                    <line x1="60" y1="10" x2="60" y2="110" stroke="rgba(0,240,255,0.1)" stroke-width="0.5"/>
-                    <line x1="90" y1="10" x2="90" y2="110" stroke="rgba(0,240,255,0.1)" stroke-width="0.5"/>
-                    <line x1="10" y1="40" x2="110" y2="40" stroke="rgba(0,240,255,0.1)" stroke-width="0.5"/>
-                    <line x1="10" y1="70" x2="110" y2="70" stroke="rgba(0,240,255,0.1)" stroke-width="0.5"/>
-                    <circle cx="30" cy="40" r="3" fill="rgba(0,240,255,0.5)"/>
-                    <circle cx="60" cy="70" r="3" fill="rgba(168,85,247,0.5)"/>
-                    <circle cx="90" cy="40" r="3" fill="rgba(0,240,255,0.5)"/>
-                    <path d="M30 40 L60 70 L90 40" stroke="rgba(0,240,255,0.25)" stroke-width="1" fill="none"/>
-                    <rect x="45" y="85" width="30" height="12" rx="2" fill="rgba(0,240,255,0.08)" stroke="rgba(0,240,255,0.2)" stroke-width="0.5"/>
-                    <text x="60" y="94" text-anchor="middle" font-size="6" fill="rgba(0,240,255,0.5)" font-family="monospace">MCU</text>
-                </svg>
-            </div>
-            <div class="philosophy-text fade-up fade-up-d1">
-                <div class="philosophy-block">
-                    <div class="philosophy-block-label">From Concept to Circuit</div>
-                    <p class="philosophy-block-text">
-                        Every meaningful hardware breakthrough begins at the intersection of disciplined
-                        engineering and bold creative vision. We operate at that crossroads, turning
-                        ideas into production-ready PCBs, firmware, and connected systems that
-                        reshape industries.
-                    </p>
+    <!-- SECTION 2: ABOUT -->
+    <section id="about" class="video-section">
+        <video class="video-bg" id="aboutVideo" muted autoplay playsinline preload="auto" loop>
+            <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260402_054547_9875cfc5-155a-4229-8ec8-b7ba7125cbf8.mp4" type="video/mp4">
+        </video>
+        <div class="video-overlay" style="background: radial-gradient(ellipse at center, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.85) 70%);"></div>
+        <div class="section-content">
+            <div class="about-grid">
+                <div>
+                    <div class="about-label reveal">Who I Am</div>
+                    <h2 class="about-heading reveal reveal-delay-1">Engineer.<br><em>Entrepreneur.</em><br>Builder.</h2>
+                    <p class="about-text reveal reveal-delay-2">I started Rapid Circuitry because hardware shouldn't be hard. Too many brilliant ideas die in the gap between prototype and production. I'm closing that gap with AI-driven design tools, embedded systems expertise, and a relentless focus on shipping real products.</p>
+                    <p class="about-text reveal reveal-delay-3" style="margin-top:1rem;">Based in Hyderabad, serving teams worldwide. From LoRa-connected agritech sensors to radar-based health monitors — if it has a circuit board, we build it.</p>
                 </div>
-                <div class="philosophy-divider"></div>
-                <div class="philosophy-block">
-                    <div class="philosophy-block-label">AI Meets Atoms</div>
-                    <p class="philosophy-block-text">
-                        We believe the best hardware emerges when machine intelligence meets human
-                        intuition. Our AI-powered platform uncovers optimization opportunities that
-                        manual design misses &mdash; translating them into devices that are
-                        smaller, smarter, and shipped faster.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- ===== SERVICES ===== -->
-<section class="services" id="services">
-    <div class="services-inner">
-        <div class="services-header fade-up">
-            <h2 class="services-title">What I build</h2>
-            <span class="services-label">Capabilities</span>
-        </div>
-        <div class="services-grid">
-            <div class="service-card liquid-glass fade-up fade-up-d1">
-                <div class="service-card-visual" style="background: linear-gradient(135deg, #030a1a, #0a1628);">
-                    <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;">
-                        <svg width="80" height="80" viewBox="0 0 80 80" fill="none" style="opacity:0.4;">
-                            <rect x="5" y="15" width="70" height="50" rx="4" stroke="rgba(0,240,255,0.4)" stroke-width="1"/>
-                            <line x1="5" y1="25" x2="75" y2="25" stroke="rgba(0,240,255,0.2)"/>
-                            <circle cx="20" cy="20" r="2" fill="rgba(0,240,255,0.5)"/>
-                            <circle cx="28" cy="20" r="2" fill="rgba(168,85,247,0.5)"/>
-                            <rect x="15" y="32" width="25" height="2" rx="1" fill="rgba(0,240,255,0.15)"/>
-                            <rect x="15" y="38" width="40" height="2" rx="1" fill="rgba(0,240,255,0.1)"/>
-                            <rect x="15" y="44" width="30" height="2" rx="1" fill="rgba(0,240,255,0.08)"/>
-                            <rect x="15" y="50" width="35" height="2" rx="1" fill="rgba(0,240,255,0.06)"/>
-                        </svg>
+                <div class="about-stats">
+                    <div class="stat-card liquid-glass reveal reveal-delay-2">
+                        <div class="stat-number">50+</div>
+                        <div class="stat-label">Products Shipped</div>
+                    </div>
+                    <div class="stat-card liquid-glass reveal reveal-delay-3">
+                        <div class="stat-number">5yr</div>
+                        <div class="stat-label">Deep Hardware</div>
+                    </div>
+                    <div class="stat-card liquid-glass reveal reveal-delay-4">
+                        <div class="stat-number">AI</div>
+                        <div class="stat-label">Powered Design</div>
+                    </div>
+                    <div class="stat-card liquid-glass reveal reveal-delay-5">
+                        <div class="stat-number" style="font-size:2.2rem;">End-to-End</div>
+                        <div class="stat-label">Idea to Production</div>
                     </div>
                 </div>
-                <div class="service-card-body">
-                    <div class="service-card-top">
-                        <span class="service-card-tag">AI + Hardware</span>
-                        <div class="service-card-arrow liquid-glass">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- SECTION 3: FEATURED VIDEO -->
+    <section id="featured">
+        <div class="featured-container">
+            <div class="featured-label reveal">Showcase</div>
+            <h2 class="featured-title reveal reveal-delay-1">See the <em>craft</em> in action</h2>
+            <div class="featured-video-wrapper liquid-glass reveal-scale reveal-delay-2">
+                <video id="featuredVideo" muted autoplay playsinline preload="auto" loop style="opacity:0;">
+                    <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260324_151826_c7218672-6e92-402c-9e45-f1e0f454bdc4.mp4" type="video/mp4">
+                </video>
+            </div>
+            <p class="featured-caption reveal reveal-delay-3">AI-driven PCB design — from schematic to production files in hours, not weeks.</p>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- SECTION 4: PHILOSOPHY -->
+    <section id="philosophy" class="video-section">
+        <video class="video-bg" id="philVideo" muted autoplay playsinline preload="auto" loop>
+            <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260314_131748_f2ca2a28-fed7-44c8-b9a9-bd9acdd5ec31.mp4" type="video/mp4">
+        </video>
+        <div class="video-overlay" style="background: linear-gradient(135deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.5) 50%, rgba(0,0,0,0.8) 100%);"></div>
+        <div class="section-content">
+            <div class="philosophy-container">
+                <div class="about-label reveal" style="text-align:center;">Philosophy</div>
+                <h2 class="philosophy-heading reveal reveal-delay-1"><em>Innovation</em> x Vision</h2>
+                <div class="philosophy-grid">
+                    <div class="philosophy-card liquid-glass reveal reveal-delay-2">
+                        <div class="philosophy-card-number">01</div>
+                        <h3 class="philosophy-card-title">Design with <em>intelligence</em></h3>
+                        <p class="philosophy-card-text">Every PCB layout, every component choice, every trace route — informed by AI. We don't replace the engineer, we amplify them. Machine learning handles the tedious; humans handle the creative.</p>
+                    </div>
+                    <div class="philosophy-card liquid-glass reveal reveal-delay-3">
+                        <div class="philosophy-card-number">02</div>
+                        <h3 class="philosophy-card-title">Ship <em>real</em> products</h3>
+                        <p class="philosophy-card-text">Prototypes are easy. Production is where most startups fail. We bridge that gap — DFM analysis, thermal simulation, compliance-ready outputs. Your hardware works in the lab and in the field.</p>
+                    </div>
+                    <div class="philosophy-card liquid-glass reveal reveal-delay-4">
+                        <div class="philosophy-card-number">03</div>
+                        <h3 class="philosophy-card-title">Think in <em>systems</em></h3>
+                        <p class="philosophy-card-text">A board is nothing without firmware, connectivity, and a deployment strategy. We architect complete embedded systems — sensor to cloud, edge to dashboard, device to fleet.</p>
+                    </div>
+                    <div class="philosophy-card liquid-glass reveal reveal-delay-5">
+                        <div class="philosophy-card-number">04</div>
+                        <h3 class="philosophy-card-title">Build for <em>impact</em></h3>
+                        <p class="philosophy-card-text">Healthcare monitors saving lives in rural India. Precision agriculture sensors cutting water waste. Asset trackers protecting supply chains. Technology exists to solve real problems.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- SECTION 5: SERVICES -->
+    <section id="services" class="video-section">
+        <video class="video-bg" id="servicesVideo" muted autoplay playsinline preload="auto" loop>
+            <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260307_083826_e938b29f-a43a-41ec-a153-3d4730578ab8.mp4" type="video/mp4">
+        </video>
+        <div class="video-overlay" style="background: radial-gradient(ellipse at bottom, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.9) 80%);"></div>
+        <div class="section-content">
+            <div class="services-container">
+                <div class="about-label reveal">What We Do</div>
+                <h2 class="services-heading reveal reveal-delay-1">The <em>work</em></h2>
+                <p class="services-sub reveal reveal-delay-2">End-to-end hardware development — every discipline under one roof.</p>
+                <div class="services-grid">
+                    <div class="service-card liquid-glass reveal reveal-delay-2">
+                        <div class="service-icon">
+                            <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="2"/><path d="M7 7h10M7 12h10M7 17h6"/></svg>
                         </div>
+                        <h3 class="service-title">PCB Design</h3>
+                        <p class="service-text">AI-accelerated schematic capture, multi-layer layout, signal integrity analysis, and production-ready Gerber files. From concept to fab in record time.</p>
                     </div>
-                    <h3>AI-Powered PCB Design</h3>
-                    <p>End-to-end platform that takes hardware from idea to production-ready files.
-                       AI generates schematics, optimizes layouts, and cuts development time by 10x.</p>
-                </div>
-            </div>
-            <div class="service-card liquid-glass fade-up fade-up-d2">
-                <div class="service-card-visual" style="background: linear-gradient(135deg, #030a1a, #0f0a28);">
-                    <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;">
-                        <svg width="80" height="80" viewBox="0 0 80 80" fill="none" style="opacity:0.4;">
-                            <circle cx="40" cy="35" r="12" stroke="rgba(168,85,247,0.4)" stroke-width="1"/>
-                            <circle cx="40" cy="35" r="4" fill="rgba(168,85,247,0.3)"/>
-                            <line x1="40" y1="47" x2="40" y2="60" stroke="rgba(168,85,247,0.3)"/>
-                            <line x1="28" y1="35" x2="15" y2="35" stroke="rgba(0,240,255,0.2)"/>
-                            <line x1="52" y1="35" x2="65" y2="35" stroke="rgba(0,240,255,0.2)"/>
-                            <circle cx="15" cy="35" r="3" fill="rgba(0,240,255,0.2)"/>
-                            <circle cx="65" cy="35" r="3" fill="rgba(0,240,255,0.2)"/>
-                            <circle cx="40" cy="60" r="3" fill="rgba(168,85,247,0.2)"/>
-                            <path d="M30 55 Q40 70 50 55" stroke="rgba(0,240,255,0.15)" fill="none"/>
-                        </svg>
-                    </div>
-                </div>
-                <div class="service-card-body">
-                    <div class="service-card-top">
-                        <span class="service-card-tag">Connected Systems</span>
-                        <div class="service-card-arrow liquid-glass">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+                    <div class="service-card liquid-glass reveal reveal-delay-3">
+                        <div class="service-icon">
+                            <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
                         </div>
+                        <h3 class="service-title">Embedded Systems</h3>
+                        <p class="service-text">Firmware development for STM32, ESP32, nRF, and custom SoCs. RTOS, bare-metal, and Linux. BLE, Wi-Fi, LoRa, cellular connectivity.</p>
                     </div>
-                    <h3>IoT & Edge Intelligence</h3>
-                    <p>Custom IoT solutions with LoRa, BLE, and cellular connectivity.
-                       Health monitors, asset trackers, and industrial sensors &mdash; built for
-                       the edge where reliability isn't optional.</p>
+                    <div class="service-card liquid-glass reveal reveal-delay-4">
+                        <div class="service-icon">
+                            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                        </div>
+                        <h3 class="service-title">IoT Solutions</h3>
+                        <p class="service-text">Sensor networks, cloud integration, OTA updates, fleet management dashboards. Complete device-to-cloud architecture for industrial and consumer IoT.</p>
+                    </div>
+                    <div class="service-card liquid-glass reveal reveal-delay-3">
+                        <div class="service-icon">
+                            <svg viewBox="0 0 24 24"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>
+                        </div>
+                        <h3 class="service-title">Health Monitoring</h3>
+                        <p class="service-text">Remote patient monitoring devices, wearable sensors, radar-based vitals detection. Medical-grade hardware designed for real-world deployment.</p>
+                    </div>
+                    <div class="service-card liquid-glass reveal reveal-delay-4">
+                        <div class="service-icon">
+                            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                        </div>
+                        <h3 class="service-title">Asset Tracking</h3>
+                        <p class="service-text">GPS + LoRa + cellular tracking devices for logistics, agriculture, and fleet management. Low-power, long-range, built for harsh environments.</p>
+                    </div>
+                    <div class="service-card liquid-glass reveal reveal-delay-5">
+                        <div class="service-icon">
+                            <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 100 20 10 10 0 000-20z"/><path d="M12 8v4l3 3"/><path d="M3.5 11h1M19.5 11h1M12 3.5v1"/></svg>
+                        </div>
+                        <h3 class="service-title">AI + Hardware</h3>
+                        <p class="service-text">Computer vision quality control, edge ML inference, spectral sensing, and predictive maintenance systems. Intelligence where it matters — on the device.</p>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<!-- ===== CONNECT ===== -->
-<section class="connect" id="connect">
-    <div class="connect-inner">
-        <h2 class="connect-heading fade-up">
-            Let's build <em>something</em><br>that matters.
-        </h2>
-        <p class="connect-text fade-up fade-up-d1">
-            Whether you're a startup with a hardware idea, an engineer
-            looking to collaborate, or an investor backing deep tech.
-        </p>
-        <a href="mailto:aditya@rapidcircuitry.com" class="connect-email liquid-glass fade-up fade-up-d2">
-            aditya@rapidcircuitry.com &rarr;
-        </a>
-        <div class="connect-social fade-up fade-up-d3">
-            <a href="https://www.linkedin.com/in/adityachilka" target="_blank" rel="noopener" class="liquid-glass">
-                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-            </a>
-            <a href="https://www.instagram.com/rapidcircuitry/" target="_blank" rel="noopener" class="liquid-glass">
-                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
-            </a>
-            <a href="https://peerlist.io/adityachilka" target="_blank" rel="noopener" class="liquid-glass">
-                <svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/><text x="12" y="16" text-anchor="middle" font-size="11" font-weight="bold" fill="currentColor">P</text></svg>
-            </a>
+    <div class="section-divider"></div>
+
+    <!-- CONTACT / FOOTER -->
+    <section id="contact">
+        <div class="section-content" style="max-width:800px; margin:0 auto;">
+            <div class="about-label reveal" style="text-align:center;">Let's Connect</div>
+            <h2 class="contact-heading reveal reveal-delay-1">Ready to build<br>something <em>real</em>?</h2>
+            <p class="contact-text reveal reveal-delay-2">Whether you have a hardware concept, need PCB expertise, or want to explore what AI can do for your next product — I'd love to hear from you.</p>
+            <div class="contact-links reveal reveal-delay-3">
+                <a href="mailto:aditya@rapidcircuitry.com" class="liquid-glass" style="border-radius:100px;">
+                    <svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 4l-10 8L2 4"/></svg>
+                    aditya@rapidcircuitry.com
+                </a>
+                <a href="https://www.linkedin.com/in/adityachilka" target="_blank" rel="noopener" class="liquid-glass" style="border-radius:100px;">
+                    <svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-4 0v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+                    LinkedIn
+                </a>
+                <a href="https://rapidcircuitry.com" target="_blank" rel="noopener" class="liquid-glass" style="border-radius:100px;">
+                    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+                    Rapid Circuitry
+                </a>
+                <a href="https://www.instagram.com/adityachilka/" target="_blank" rel="noopener" class="liquid-glass" style="border-radius:100px;">
+                    <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5"/></svg>
+                    Instagram
+                </a>
+            </div>
+            <div class="footer-line">
+                <span class="footer-copy">&copy; 2026 Aditya Chilka. All rights reserved.</span>
+                <span class="footer-loc">17.3850&deg; N, 78.4867&deg; E &mdash; Hyderabad</span>
+            </div>
         </div>
-        <div class="footer-line">&copy; 2026 Aditya Chilka &middot; Rapid Circuitry &middot; Hyderabad, India</div>
-    </div>
-</section>
+    </section>
 
-<script>
-// ===== PARTICLE CANVAS =====
-const canvas = document.getElementById('particleCanvas');
-const ctx = canvas.getContext('2d');
-let w, h, particles = [], mouse = { x: 0, y: 0 };
+    <script>
+    (function() {
+        'use strict';
 
-function resize() {
-    w = canvas.width = canvas.offsetWidth;
-    h = canvas.height = canvas.offsetHeight;
-}
-resize();
-window.addEventListener('resize', resize);
-document.addEventListener('mousemove', e => { mouse.x = e.clientX; mouse.y = e.clientY; });
+        // === VIDEO FADE LOGIC ===
+        function initVideoFade(videoEl) {
+            if (!videoEl) return;
+            const FADE_DURATION = 500; // ms
+            const FADE_OUT_THRESHOLD = 1.0; // seconds before end
 
-for (let i = 0; i < 50; i++) {
-    particles.push({
-        x: Math.random() * 2000, y: Math.random() * 1200,
-        vx: (Math.random() - 0.5) * 0.4, vy: (Math.random() - 0.5) * 0.4,
-        r: Math.random() * 1.5 + 0.3, o: Math.random() * 0.3 + 0.05
-    });
-}
-
-function drawParticles() {
-    ctx.clearRect(0, 0, w, h);
-    particles.forEach(p => {
-        p.x += p.vx; p.y += p.vy;
-        if (p.x < 0) p.x = w; if (p.x > w) p.x = 0;
-        if (p.y < 0) p.y = h; if (p.y > h) p.y = 0;
-
-        // Mouse repulsion
-        const dx = p.x - mouse.x, dy = p.y - mouse.y;
-        const dist = Math.sqrt(dx * dx + dy * dy);
-        if (dist < 120) {
-            p.x += dx * 0.01;
-            p.y += dy * 0.01;
-        }
-
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(0, 240, 255, ${p.o})`;
-        ctx.fill();
-    });
-
-    // Connections
-    for (let i = 0; i < particles.length; i++) {
-        for (let j = i + 1; j < particles.length; j++) {
-            const dx = particles[i].x - particles[j].x;
-            const dy = particles[i].y - particles[j].y;
-            const d = Math.sqrt(dx * dx + dy * dy);
-            if (d < 140) {
-                ctx.beginPath();
-                ctx.moveTo(particles[i].x, particles[i].y);
-                ctx.lineTo(particles[j].x, particles[j].y);
-                ctx.strokeStyle = `rgba(0, 240, 255, ${0.04 * (1 - d / 140)})`;
-                ctx.lineWidth = 0.5;
-                ctx.stroke();
+            function fadeIn() {
+                const start = performance.now();
+                const initialOpacity = parseFloat(videoEl.style.opacity) || 0;
+                function step(now) {
+                    const elapsed = now - start;
+                    const progress = Math.min(elapsed / FADE_DURATION, 1);
+                    videoEl.style.opacity = initialOpacity + (1 - initialOpacity) * progress;
+                    if (progress < 1) requestAnimationFrame(step);
+                }
+                requestAnimationFrame(step);
             }
+
+            function fadeOut() {
+                const start = performance.now();
+                function step(now) {
+                    const elapsed = now - start;
+                    const progress = Math.min(elapsed / FADE_DURATION, 1);
+                    videoEl.style.opacity = 1 - progress;
+                    if (progress < 1) requestAnimationFrame(step);
+                }
+                requestAnimationFrame(step);
+            }
+
+            videoEl.addEventListener('canplay', function() {
+                videoEl.play().catch(function(){});
+                fadeIn();
+            }, { once: true });
+
+            videoEl.addEventListener('timeupdate', function() {
+                if (videoEl.duration && videoEl.currentTime > videoEl.duration - FADE_OUT_THRESHOLD) {
+                    if (parseFloat(videoEl.style.opacity) > 0.1) {
+                        fadeOut();
+                    }
+                }
+            });
+
+            videoEl.addEventListener('seeked', function() {
+                if (videoEl.currentTime < 1) {
+                    fadeIn();
+                }
+            });
+
+            // Attempt play
+            videoEl.play().catch(function(){});
         }
-    }
-    requestAnimationFrame(drawParticles);
-}
-drawParticles();
 
-// ===== SCROLL REVEAL =====
-const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) entry.target.classList.add('visible');
-    });
-}, { threshold: 0.1, rootMargin: '0px 0px -80px 0px' });
-document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+        // Init all background videos
+        ['heroVideo', 'aboutVideo', 'philVideo', 'servicesVideo'].forEach(function(id) {
+            initVideoFade(document.getElementById(id));
+        });
 
-// ===== SMOOTH NAV =====
-document.querySelectorAll('a[href^="#"]').forEach(a => {
-    a.addEventListener('click', e => {
-        e.preventDefault();
-        const t = document.querySelector(a.getAttribute('href'));
-        if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    });
-});
-</script>
+        // Featured video (inline, not background)
+        var featVid = document.getElementById('featuredVideo');
+        if (featVid) {
+            initVideoFade(featVid);
+        }
+
+        // === SCROLL-TRIGGERED REVEAL ===
+        var revealEls = document.querySelectorAll('.reveal, .reveal-scale');
+        var observer = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+
+        revealEls.forEach(function(el) { observer.observe(el); });
+
+        // === NAV SCROLL EFFECT ===
+        var nav = document.getElementById('mainNav');
+        var scrolled = false;
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 80 && !scrolled) {
+                nav.classList.add('scrolled');
+                scrolled = true;
+            } else if (window.scrollY <= 80 && scrolled) {
+                nav.classList.remove('scrolled');
+                scrolled = false;
+            }
+        }, { passive: true });
+
+        // === SMOOTH NAV LINKS ===
+        document.querySelectorAll('.nav-links a, .nav-logo').forEach(function(a) {
+            a.addEventListener('click', function(e) {
+                var href = a.getAttribute('href');
+                if (href && href.startsWith('#')) {
+                    e.preventDefault();
+                    var target = document.querySelector(href);
+                    if (target) target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+    })();
+    </script>
 
 </body>
 </html>
