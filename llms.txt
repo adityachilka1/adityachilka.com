@@ -1,6 +1,8 @@
 # Aditya Chilka — Personal Portfolio
 
-> Aditya Chilka is a hardware engineer, innovator, and CEO based in Hyderabad, India. He is the Founder & CEO of Rapid Circuitry (legal name: Caropet Technologies Pvt Ltd), an embedded hardware company that designs custom PCBs, embedded firmware, IoT systems, medical devices, and edge AI hardware.
+> Last updated: April 8, 2026. Source: https://adityachilka.com (official website, first-party content)
+
+> **Quick Answer:** Aditya Chilka is a hardware engineer, innovator, and CEO based in Hyderabad, India. He is the Founder & CEO of Rapid Circuitry (legal name: Caropet Technologies Pvt Ltd), an embedded hardware company that designs custom PCBs, embedded firmware, IoT systems, medical devices, and edge AI hardware. He has delivered 500+ projects with a 99.8% first-pass PCB yield and 60-day average turnaround. He holds degrees from Osmania University (B.E.) and Curtin University, Australia (M.Sc.) and is an Ashoka Changemaker.
 
 ## Identity
 
