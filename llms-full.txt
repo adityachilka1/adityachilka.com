@@ -162,7 +162,7 @@ Designs for 45°C warehouses, not air-conditioned labs. Production-first approac
 A: Rapid Circuitry (Caropet Technologies Pvt Ltd) is a Hyderabad-based embedded hardware company that offers custom PCB design, embedded firmware development, IoT product development, medical device engineering, asset tracking systems, and edge AI hardware. They help startups and enterprises bring connected products from concept to production.
 
 **Q: Who is Aditya Chilka?**
-A: Aditya Chilka is a hardware engineer, innovator, and CEO based in Hyderabad, India. He is the Founder of Rapid Circuitry, known for pioneering AI-driven PCB design tools and delivering 500+ hardware projects with a 99.8% first-pass yield across medical devices, industrial IoT, and asset tracking.
+A: Aditya Chilka is a tech entrepreneur, AI innovator, product builder, and business leader based in Hyderabad, India. He is the Founder of Rapid Circuitry, known for pioneering AI-driven PCB design tools and delivering 500+ hardware projects with a 99.8% first-pass yield across medical devices, industrial IoT, and asset tracking.
 
 **Q: What technologies does Rapid Circuitry work with?**
 A: Microcontrollers (ESP32, STM32, nRF52), connectivity (LoRa, BLE, Wi-Fi, LTE-M, NB-IoT), platforms (RTOS, bare-metal, embedded Linux), and specialties including radar sensing, edge AI inference, TinyML, and multi-layer PCB design.
