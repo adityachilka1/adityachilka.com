@@ -1032,14 +1032,21 @@
         }
         .work-heading em { font-style: italic; color: rgba(255,255,255,0.6); }
         .work-sub { font-size: 0.9rem; color: rgba(255,255,255,0.35); font-weight: 300; margin-bottom: 2.5rem; }
-        .work-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
+        .work-carousel-outer { position: relative; overflow: hidden; margin: 0 -0.5rem; }
+        .work-track {
+            display: flex;
+            gap: 1rem;
+            transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: transform;
+        }
         .work-card {
+            flex: 0 0 calc(25% - 0.75rem);
             border-radius: 16px;
             padding: 1.75rem 1.5rem;
             display: flex;
             flex-direction: column;
             min-height: 210px;
-            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s;
             position: relative;
             overflow: hidden;
         }
@@ -1072,8 +1079,37 @@
             background: rgba(255,255,255,0.04);
             color: rgba(255,255,255,0.28);
         }
-        @media (max-width: 1100px) { .work-grid { grid-template-columns: repeat(2, 1fr); } }
-        @media (max-width: 600px) { .work-grid { grid-template-columns: 1fr; } #work { padding-left: 1.5rem; padding-right: 1.5rem; } }
+        .carousel-controls {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        .carousel-btn {
+            width: 40px; height: 40px;
+            border-radius: 50%;
+            border: 1px solid rgba(255,255,255,0.1);
+            background: rgba(255,255,255,0.03);
+            color: rgba(255,255,255,0.5);
+            cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            transition: background 0.3s, color 0.3s, border-color 0.3s;
+            backdrop-filter: blur(8px);
+        }
+        .carousel-btn:hover { background: rgba(255,255,255,0.08); color: #fff; border-color: rgba(255,255,255,0.2); }
+        .carousel-btn svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+        .carousel-dots { display: flex; gap: 0.5rem; align-items: center; }
+        .carousel-dot {
+            width: 5px; height: 5px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.15);
+            cursor: pointer;
+            transition: background 0.3s, transform 0.3s;
+        }
+        .carousel-dot.active { background: rgba(255,255,255,0.7); transform: scale(1.4); }
+        @media (max-width: 1100px) { .work-card { flex: 0 0 calc(50% - 0.5rem); } }
+        @media (max-width: 600px) { .work-card { flex: 0 0 100%; } #work { padding-left: 1.5rem; padding-right: 1.5rem; } }
     </style>
 </head>
 <body>
@@ -1287,7 +1323,8 @@
             <div class="about-label reveal" style="text-align:center;">Selected Work</div>
             <h2 class="work-heading reveal reveal-delay-1" style="text-align:center;">81 projects. <em>15 that define the range.</em></h2>
             <p class="work-sub reveal reveal-delay-2" style="text-align:center; max-width:560px; margin-left:auto; margin-right:auto;">Aerospace, critical care, medtech, IoT, and enterprise software — each built end-to-end from schematic to deployed product.</p>
-            <div class="work-grid">
+            <div class="work-carousel-outer">
+            <div id="workTrack" class="work-track">
                 <div class="work-card liquid-glass reveal reveal-delay-2">
                     <div class="work-card-accent" style="background: linear-gradient(90deg, #8b5cf6, #a78bfa);"></div>
                     <div class="work-card-domain">Aerospace · GreenTech</div>
@@ -1476,6 +1513,16 @@
                         <span class="work-tag">CoreLocation</span>
                     </div>
                 </div>
+            </div><!-- end .work-track -->
+            </div><!-- end .work-carousel-outer -->
+            <div class="carousel-controls reveal">
+                <button class="carousel-btn" id="workPrev" aria-label="Previous">
+                    <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+                </button>
+                <div class="carousel-dots" id="workDots"></div>
+                <button class="carousel-btn" id="workNext" aria-label="Next">
+                    <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+                </button>
             </div>
         </div>
     </section>
@@ -1782,6 +1829,99 @@
             progressBar.style.width = pct + '%';
         }
         window.addEventListener('scroll', updateProgress, { passive: true });
+
+        // === WORK CAROUSEL ===
+        (function() {
+            var track = document.getElementById('workTrack');
+            var dotsContainer = document.getElementById('workDots');
+            if (!track) return;
+
+            var cards = track.querySelectorAll('.work-card');
+            var total = cards.length; // 15
+            var currentIdx = 0;
+            var autoTimer = null;
+
+            function getVisible() {
+                if (window.innerWidth <= 600) return 1;
+                if (window.innerWidth <= 1100) return 2;
+                return 4;
+            }
+
+            function getMaxIdx() {
+                return Math.max(0, total - getVisible());
+            }
+
+            function getCardStep() {
+                if (!cards[0]) return 0;
+                return cards[0].offsetWidth + 16; // card width + 1rem gap
+            }
+
+            function buildDots() {
+                dotsContainer.innerHTML = '';
+                var visible = getVisible();
+                var pages = Math.ceil(total / visible);
+                for (var i = 0; i < pages; i++) {
+                    var dot = document.createElement('div');
+                    dot.className = 'carousel-dot';
+                    dot.setAttribute('data-page', i);
+                    dot.addEventListener('click', (function(page, vis) {
+                        return function() { goTo(page * vis); };
+                    })(i, visible));
+                    dotsContainer.appendChild(dot);
+                }
+                updateDots();
+            }
+
+            function updateDots() {
+                var visible = getVisible();
+                var activePage = Math.floor(currentIdx / visible);
+                var dots = dotsContainer.querySelectorAll('.carousel-dot');
+                dots.forEach(function(d, i) {
+                    d.classList.toggle('active', i === activePage);
+                });
+            }
+
+            function goTo(idx) {
+                var max = getMaxIdx();
+                if (idx < 0) idx = max;
+                if (idx > max) idx = 0;
+                currentIdx = idx;
+                track.style.transform = 'translateX(-' + (currentIdx * getCardStep()) + 'px)';
+                updateDots();
+            }
+
+            function startAuto() {
+                clearInterval(autoTimer);
+                autoTimer = setInterval(function() { goTo(currentIdx + 1); }, 4500);
+            }
+
+            document.getElementById('workPrev').addEventListener('click', function() {
+                goTo(currentIdx - getVisible());
+                startAuto();
+            });
+            document.getElementById('workNext').addEventListener('click', function() {
+                goTo(currentIdx + getVisible());
+                startAuto();
+            });
+
+            // Pause on hover
+            track.parentElement.addEventListener('mouseenter', function() { clearInterval(autoTimer); });
+            track.parentElement.addEventListener('mouseleave', startAuto);
+
+            // Touch/swipe
+            var touchStartX = 0;
+            track.addEventListener('touchstart', function(e) { touchStartX = e.touches[0].clientX; }, { passive: true });
+            track.addEventListener('touchend', function(e) {
+                var dx = touchStartX - e.changedTouches[0].clientX;
+                if (Math.abs(dx) > 40) { goTo(currentIdx + (dx > 0 ? 1 : -1)); startAuto(); }
+            }, { passive: true });
+
+            // Rebuild on resize
+            window.addEventListener('resize', function() { buildDots(); goTo(Math.min(currentIdx, getMaxIdx())); });
+
+            buildDots();
+            startAuto();
+        })();
 
         // === STORY NAV DOTS ===
         var storyDots = document.querySelectorAll('.story-dot');
