@@ -1020,6 +1020,60 @@
             .footer-line { flex-direction: column; gap: 0.5rem; }
             .story-bridge-text { font-size: 1.1rem; }
         }
+
+        /* ===== SELECTED WORK GRID ===== */
+        #work { padding: 4rem 3rem 6rem; }
+        .work-container { max-width: 1200px; margin: 0 auto; width: 100%; }
+        .work-heading {
+            font-family: 'Instrument Serif', serif;
+            font-size: clamp(2rem, 3.5vw, 3rem);
+            letter-spacing: -0.02em;
+            margin-bottom: 0.5rem;
+        }
+        .work-heading em { font-style: italic; color: rgba(255,255,255,0.6); }
+        .work-sub { font-size: 0.9rem; color: rgba(255,255,255,0.35); font-weight: 300; margin-bottom: 2.5rem; }
+        .work-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
+        .work-card {
+            border-radius: 16px;
+            padding: 1.75rem 1.5rem;
+            display: flex;
+            flex-direction: column;
+            min-height: 210px;
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        .work-card:hover { transform: translateY(-3px); }
+        .work-card-accent { position: absolute; top: 0; left: 0; right: 0; height: 2px; }
+        .work-card-domain {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.55rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.25);
+            margin-bottom: 0.6rem;
+            margin-top: 0.25rem;
+        }
+        .work-card-name {
+            font-family: 'Instrument Serif', serif;
+            font-size: 1.25rem;
+            line-height: 1.15;
+            margin-bottom: 0.5rem;
+            color: rgba(255,255,255,0.9);
+        }
+        .work-card-tagline { font-size: 0.75rem; color: rgba(255,255,255,0.38); line-height: 1.55; font-weight: 300; flex: 1; }
+        .work-card-tags { margin-top: 1rem; display: flex; flex-wrap: wrap; gap: 0.35rem; }
+        .work-tag {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.55rem;
+            letter-spacing: 0.03em;
+            padding: 0.2rem 0.5rem;
+            border-radius: 100px;
+            background: rgba(255,255,255,0.04);
+            color: rgba(255,255,255,0.28);
+        }
+        @media (max-width: 1100px) { .work-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 600px) { .work-grid { grid-template-columns: 1fr; } #work { padding-left: 1.5rem; padding-right: 1.5rem; } }
     </style>
 </head>
 <body>
@@ -1063,6 +1117,7 @@
         <div class="story-dot active" data-section="hero"><span class="story-dot-label">The Mind</span></div>
         <div class="story-dot" data-section="about"><span class="story-dot-label">The Problem</span></div>
         <div class="story-dot" data-section="featured"><span class="story-dot-label">The Proof</span></div>
+        <div class="story-dot" data-section="work"><span class="story-dot-label">The Work</span></div>
         <div class="story-dot" data-section="philosophy"><span class="story-dot-label">The Lens</span></div>
         <div class="story-dot" data-section="services"><span class="story-dot-label">The Craft</span></div>
         <div class="story-dot" data-section="contact"><span class="story-dot-label">The Invitation</span></div>
@@ -1073,7 +1128,8 @@
         <a href="#hero" class="nav-logo">Aditya Chilka</a>
         <div class="nav-links">
             <a href="#about">Story</a>
-            <a href="#philosophy">Thinking</a>
+            <a href="#featured">Proof</a>
+            <a href="#work">Work</a>
             <a href="#services">Craft</a>
             <a href="#contact">Connect</a>
         </div>
@@ -1172,46 +1228,166 @@
                 <div class="chapter-marker reveal" style="text-align:center;">Chapter III</div>
                 <div class="featured-label reveal">The Proof</div>
                 <h2 class="featured-title reveal reveal-delay-1">Where thinking meets <em>making</em></h2>
-                <p class="featured-subtitle reveal reveal-delay-2">Every project is a problem solved end-to-end. Here's what it looks like when a thinker, engineer, and CEO are the same person.</p>
+                <p class="featured-subtitle reveal reveal-delay-2">Three real case studies. End-to-end ownership. Here's what it looks like when the thinker, engineer, and CEO are the same person.</p>
                 <div class="proof-grid">
                     <div class="proof-card liquid-glass reveal reveal-delay-2">
                         <div>
-                            <div class="proof-card-domain">Medical Devices</div>
-                            <h3 class="proof-card-title">Remote patient <em>monitoring</em></h3>
-                            <p class="proof-card-text">Designed a wearable cardiac monitor for rural clinics where specialists are 200km away. The problem: existing devices needed Wi-Fi. The solution: LoRa-based edge processing that transmits only anomalies, cutting bandwidth 95% while catching critical cardiac events in real time.</p>
+                            <div class="proof-card-domain">Aerospace · GreenTech</div>
+                            <h3 class="proof-card-title">Hydrogen drone <em>fleet OS</em></h3>
+                            <p class="proof-card-text">Built the operating system for Hyscend's hydrogen-powered drone fleet — mission planning, H₂ fuel intelligence, real-time MQTT telemetry, YOLOv8 inspection AI across solar, pipeline, and border verticals, plus full DGCA/NPNT regulatory compliance. End-to-end. One platform.</p>
                         </div>
                         <div class="proof-card-tech">
-                            <span class="proof-tech-tag">nRF52</span>
-                            <span class="proof-tech-tag">LoRa</span>
-                            <span class="proof-tech-tag">Edge AI</span>
-                            <span class="proof-tech-tag">BLE</span>
+                            <span class="proof-tech-tag">ArduPilot</span>
+                            <span class="proof-tech-tag">MAVLink</span>
+                            <span class="proof-tech-tag">YOLOv8</span>
+                            <span class="proof-tech-tag">Next.js</span>
+                            <span class="proof-tech-tag">TimescaleDB</span>
+                            <span class="proof-tech-tag">Keycloak</span>
                         </div>
                     </div>
                     <div class="proof-card liquid-glass reveal reveal-delay-3">
                         <div>
-                            <div class="proof-card-domain">Industrial IoT</div>
-                            <h3 class="proof-card-title">GPS asset <em>tracking</em> at scale</h3>
-                            <p class="proof-card-text">Built a fleet tracking system for logistics across Indian highways — 45°C heat, unreliable cellular, vehicles offline for hours. Engineered an ultra-low-power GPS+LoRa+LTE-M hybrid that runs 3 years on a single battery and survives monsoons.</p>
+                            <div class="proof-card-domain">Medical Devices · Critical Care</div>
+                            <h3 class="proof-card-title">NICU clinical <em>intelligence</em></h3>
+                            <p class="proof-card-text">NestWatch — real-time clinical dashboard for neonatal ICUs. 14 AI/ML decision-support pipelines (sepsis, NEC, ROP, discharge readiness), HL7 FHIR R4 interoperability, HIPAA RBAC with Break-the-Glass override, and edge VLM on Jetson Orin. Built to IEC 62304 and FDA 21 CFR 820.</p>
                         </div>
                         <div class="proof-card-tech">
-                            <span class="proof-tech-tag">STM32</span>
-                            <span class="proof-tech-tag">GPS</span>
-                            <span class="proof-tech-tag">LTE-M</span>
-                            <span class="proof-tech-tag">LoRa</span>
+                            <span class="proof-tech-tag">Go Microservices</span>
+                            <span class="proof-tech-tag">Next.js 16</span>
+                            <span class="proof-tech-tag">Python ML</span>
+                            <span class="proof-tech-tag">FHIR R4</span>
+                            <span class="proof-tech-tag">IEC 62304</span>
                         </div>
                     </div>
                     <div class="proof-card liquid-glass reveal reveal-delay-4">
                         <div>
-                            <div class="proof-card-domain">AI + Hardware</div>
-                            <h3 class="proof-card-title">AI-powered <em>PCB design</em></h3>
-                            <p class="proof-card-text">Building the tool I wished existed: an AI platform that takes a hardware idea from schematic to production-ready layout. Automated trace routing, component placement, and DRC — compressing weeks of manual work into hours. This is the future of product building.</p>
+                            <div class="proof-card-domain">Industrial IoT · Enterprise SaaS</div>
+                            <h3 class="proof-card-title">Enterprise maintenance <em>SaaS</em></h3>
+                            <p class="proof-card-text">Production-grade CMMS for manufacturers who can't afford downtime. Multi-tenant architecture, real-time IoT telemetry ingestion, offline-first PWA for field technicians, RBAC across 5 roles, and full work-order lifecycle from creation to compliance reporting.</p>
                         </div>
                         <div class="proof-card-tech">
-                            <span class="proof-tech-tag">AI/ML</span>
-                            <span class="proof-tech-tag">EDA</span>
-                            <span class="proof-tech-tag">KiCad</span>
-                            <span class="proof-tech-tag">Python</span>
+                            <span class="proof-tech-tag">Next.js 15</span>
+                            <span class="proof-tech-tag">tRPC</span>
+                            <span class="proof-tech-tag">Prisma</span>
+                            <span class="proof-tech-tag">PostgreSQL</span>
+                            <span class="proof-tech-tag">IoT</span>
+                            <span class="proof-tech-tag">PWA</span>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- SELECTED WORK GRID                           -->
+    <!-- ============================================ -->
+    <section id="work">
+        <div class="work-container">
+            <div class="about-label reveal" style="text-align:center;">Selected Work</div>
+            <h2 class="work-heading reveal reveal-delay-1" style="text-align:center;">81 projects. <em>8 that define the range.</em></h2>
+            <p class="work-sub reveal reveal-delay-2" style="text-align:center; max-width:560px; margin-left:auto; margin-right:auto;">Aerospace, critical care, industrial IoT, and enterprise software — each built end-to-end from schematic to deployed product.</p>
+            <div class="work-grid">
+                <div class="work-card liquid-glass reveal reveal-delay-2">
+                    <div class="work-card-accent" style="background: linear-gradient(90deg, #8b5cf6, #a78bfa);"></div>
+                    <div class="work-card-domain">Aerospace · GreenTech</div>
+                    <div class="work-card-name">Flight OS</div>
+                    <p class="work-card-tagline">Hydrogen drone fleet operating system for Hyscend. Mission planning, H₂ fuel telemetry, YOLOv8 inspection AI, and DGCA/NPNT regulatory compliance in one platform.</p>
+                    <div class="work-card-tags">
+                        <span class="work-tag">ArduPilot</span>
+                        <span class="work-tag">MAVLink</span>
+                        <span class="work-tag">YOLOv8</span>
+                        <span class="work-tag">Next.js</span>
+                        <span class="work-tag">TimescaleDB</span>
+                    </div>
+                </div>
+                <div class="work-card liquid-glass reveal reveal-delay-3">
+                    <div class="work-card-accent" style="background: linear-gradient(90deg, #0ea5e9, #38bdf8);"></div>
+                    <div class="work-card-domain">Medical · Critical Care</div>
+                    <div class="work-card-name">NestWatch</div>
+                    <p class="work-card-tagline">NICU clinical intelligence platform. 14 AI/ML decision-support pipelines, HL7 FHIR R4 interoperability, HIPAA RBAC, and edge VLM on Jetson Orin. Regulatory-grade.</p>
+                    <div class="work-card-tags">
+                        <span class="work-tag">Go Microservices</span>
+                        <span class="work-tag">Next.js 16</span>
+                        <span class="work-tag">FHIR R4</span>
+                        <span class="work-tag">IEC 62304</span>
+                    </div>
+                </div>
+                <div class="work-card liquid-glass reveal reveal-delay-4">
+                    <div class="work-card-accent" style="background: linear-gradient(90deg, #06b6d4, #22d3ee);"></div>
+                    <div class="work-card-domain">Medical AI · Computer Vision</div>
+                    <div class="work-card-name">NICU-OCR</div>
+                    <p class="work-card-tagline">Extracts HR, SpO₂, NIBP, Temp, RR from live NICU monitor feeds using YOLO + PaddleOCR. Runs on Jetson Orin and Mac via CoreML acceleration.</p>
+                    <div class="work-card-tags">
+                        <span class="work-tag">YOLO</span>
+                        <span class="work-tag">PaddleOCR</span>
+                        <span class="work-tag">Jetson</span>
+                        <span class="work-tag">CoreML</span>
+                        <span class="work-tag">Python</span>
+                    </div>
+                </div>
+                <div class="work-card liquid-glass reveal reveal-delay-5">
+                    <div class="work-card-accent" style="background: linear-gradient(90deg, #f59e0b, #fbbf24);"></div>
+                    <div class="work-card-domain">Industrial IoT · Enterprise SaaS</div>
+                    <div class="work-card-name">CMMS Platform</div>
+                    <p class="work-card-tagline">Enterprise maintenance SaaS for sterilization equipment manufacturers. Multi-tenant, offline-first PWA for field technicians, IoT telemetry ingestion.</p>
+                    <div class="work-card-tags">
+                        <span class="work-tag">Next.js 15</span>
+                        <span class="work-tag">tRPC</span>
+                        <span class="work-tag">Prisma</span>
+                        <span class="work-tag">PostgreSQL</span>
+                    </div>
+                </div>
+                <div class="work-card liquid-glass reveal reveal-delay-2">
+                    <div class="work-card-accent" style="background: linear-gradient(90deg, #10b981, #34d399);"></div>
+                    <div class="work-card-domain">Industrial IoT · Monitoring</div>
+                    <div class="work-card-name">GreenSemi Dashboard</div>
+                    <p class="work-card-tagline">Real-time IoT monitoring on 100% live MQTT streams — 6-axis IMU, temperature, pressure, and battery across dynamically-discovered device fleets.</p>
+                    <div class="work-card-tags">
+                        <span class="work-tag">React</span>
+                        <span class="work-tag">TypeScript</span>
+                        <span class="work-tag">MQTT</span>
+                        <span class="work-tag">HiveMQ</span>
+                        <span class="work-tag">Vite</span>
+                    </div>
+                </div>
+                <div class="work-card liquid-glass reveal reveal-delay-3">
+                    <div class="work-card-accent" style="background: linear-gradient(90deg, #3b82f6, #60a5fa);"></div>
+                    <div class="work-card-domain">MedTech · Mobile</div>
+                    <div class="work-card-name">Breathsense</div>
+                    <p class="work-card-tagline">AI-powered respiratory health monitoring app. Continuous breathing pattern tracking, personalized insights, and clinical-grade daily check-ins for iOS and Android.</p>
+                    <div class="work-card-tags">
+                        <span class="work-tag">Flutter</span>
+                        <span class="work-tag">Dart</span>
+                        <span class="work-tag">Edge ML</span>
+                        <span class="work-tag">iOS</span>
+                        <span class="work-tag">Android</span>
+                    </div>
+                </div>
+                <div class="work-card liquid-glass reveal reveal-delay-4">
+                    <div class="work-card-accent" style="background: linear-gradient(90deg, #ef4444, #f87171);"></div>
+                    <div class="work-card-domain">Medical · Embedded Systems</div>
+                    <div class="work-card-name">Upbeat Firmware</div>
+                    <p class="work-card-tagline">Production cardiac wearable firmware v5.6. BLE sensor fusion, real-time ECG/SpO₂ acquisition, ultra-low-power RTOS architecture, and robust OTA update system.</p>
+                    <div class="work-card-tags">
+                        <span class="work-tag">nRF52</span>
+                        <span class="work-tag">BLE</span>
+                        <span class="work-tag">RTOS</span>
+                        <span class="work-tag">C</span>
+                        <span class="work-tag">OTA</span>
+                    </div>
+                </div>
+                <div class="work-card liquid-glass reveal reveal-delay-5">
+                    <div class="work-card-accent" style="background: linear-gradient(90deg, rgba(255,255,255,0.35), rgba(255,255,255,0.12));"></div>
+                    <div class="work-card-domain">Business Intelligence · SaaS</div>
+                    <div class="work-card-name">Rapidcircuitry SaaS</div>
+                    <p class="work-card-tagline">CEO-level visibility across hardware operations — projects, resources, financials, and supply chain in a single internal platform for 10–50 person electronics teams.</p>
+                    <div class="work-card-tags">
+                        <span class="work-tag">Next.js 15</span>
+                        <span class="work-tag">tRPC</span>
+                        <span class="work-tag">Prisma</span>
+                        <span class="work-tag">PostgreSQL</span>
+                        <span class="work-tag">TypeScript</span>
                     </div>
                 </div>
             </div>
@@ -1523,7 +1699,7 @@
 
         // === STORY NAV DOTS ===
         var storyDots = document.querySelectorAll('.story-dot');
-        var sections = ['hero', 'about', 'featured', 'philosophy', 'services', 'contact'];
+        var sections = ['hero', 'about', 'featured', 'work', 'philosophy', 'services', 'contact'];
         var sectionEls = sections.map(function(id) { return document.getElementById(id); });
 
         function updateStoryDots() {
