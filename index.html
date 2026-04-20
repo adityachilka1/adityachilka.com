@@ -1036,7 +1036,6 @@
         .work-track {
             display: flex;
             gap: 1rem;
-            transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
             will-change: transform;
         }
         .work-card {
@@ -1830,16 +1829,20 @@
         }
         window.addEventListener('scroll', updateProgress, { passive: true });
 
-        // === WORK CAROUSEL ===
+        // === WORK CAROUSEL (infinite loop) ===
         (function() {
             var track = document.getElementById('workTrack');
             var dotsContainer = document.getElementById('workDots');
             if (!track) return;
 
-            var cards = track.querySelectorAll('.work-card');
-            var total = cards.length; // 15
+            // Clone all cards for seamless infinite loop
+            var origCards = Array.from(track.querySelectorAll('.work-card'));
+            var origCount = origCards.length; // 15
+            origCards.forEach(function(c) { track.appendChild(c.cloneNode(true)); });
+
             var currentIdx = 0;
             var autoTimer = null;
+            var TRANSITION = 'transform 0.65s cubic-bezier(0.16, 1, 0.3, 1)';
 
             function getVisible() {
                 if (window.innerWidth <= 600) return 1;
@@ -1847,77 +1850,85 @@
                 return 4;
             }
 
-            function getMaxIdx() {
-                return Math.max(0, total - getVisible());
-            }
-
             function getCardStep() {
-                if (!cards[0]) return 0;
-                return cards[0].offsetWidth + 16; // card width + 1rem gap
+                var c = track.querySelector('.work-card');
+                return c ? c.offsetWidth + 16 : 0;
             }
 
+            function setPos(idx, animate) {
+                track.style.transition = animate === false ? 'none' : TRANSITION;
+                track.style.transform = 'translateX(-' + (idx * getCardStep()) + 'px)';
+            }
+
+            function goTo(idx) {
+                currentIdx = idx;
+                setPos(currentIdx, true);
+                updateDots();
+            }
+
+            // After transition: if in clone zone, silently teleport to real zone
+            track.addEventListener('transitionend', function() {
+                if (currentIdx >= origCount) {
+                    currentIdx -= origCount;
+                    setPos(currentIdx, false);
+                } else if (currentIdx < 0) {
+                    currentIdx += origCount;
+                    setPos(currentIdx, false);
+                }
+                updateDots();
+            });
+
+            // Dots (based on position within originals)
             function buildDots() {
                 dotsContainer.innerHTML = '';
-                var visible = getVisible();
-                var pages = Math.ceil(total / visible);
+                var vis = getVisible();
+                var pages = Math.ceil(origCount / vis);
                 for (var i = 0; i < pages; i++) {
                     var dot = document.createElement('div');
                     dot.className = 'carousel-dot';
-                    dot.setAttribute('data-page', i);
-                    dot.addEventListener('click', (function(page, vis) {
-                        return function() { goTo(page * vis); };
-                    })(i, visible));
+                    (function(page, v) {
+                        dot.addEventListener('click', function() { goTo(page * v); startAuto(); });
+                    })(i, vis);
                     dotsContainer.appendChild(dot);
                 }
                 updateDots();
             }
 
             function updateDots() {
-                var visible = getVisible();
-                var activePage = Math.floor(currentIdx / visible);
-                var dots = dotsContainer.querySelectorAll('.carousel-dot');
-                dots.forEach(function(d, i) {
+                var vis = getVisible();
+                var realIdx = ((currentIdx % origCount) + origCount) % origCount;
+                var activePage = Math.floor(realIdx / vis);
+                dotsContainer.querySelectorAll('.carousel-dot').forEach(function(d, i) {
                     d.classList.toggle('active', i === activePage);
                 });
             }
 
-            function goTo(idx) {
-                var max = getMaxIdx();
-                if (idx < 0) idx = max;
-                if (idx > max) idx = 0;
-                currentIdx = idx;
-                track.style.transform = 'translateX(-' + (currentIdx * getCardStep()) + 'px)';
-                updateDots();
-            }
-
             function startAuto() {
                 clearInterval(autoTimer);
-                autoTimer = setInterval(function() { goTo(currentIdx + 1); }, 4500);
+                autoTimer = setInterval(function() { goTo(currentIdx + 1); }, 4000);
             }
 
             document.getElementById('workPrev').addEventListener('click', function() {
-                goTo(currentIdx - getVisible());
-                startAuto();
+                goTo(currentIdx - getVisible()); startAuto();
             });
             document.getElementById('workNext').addEventListener('click', function() {
-                goTo(currentIdx + getVisible());
-                startAuto();
+                goTo(currentIdx + getVisible()); startAuto();
             });
 
             // Pause on hover
-            track.parentElement.addEventListener('mouseenter', function() { clearInterval(autoTimer); });
-            track.parentElement.addEventListener('mouseleave', startAuto);
+            var outer = track.parentElement;
+            outer.addEventListener('mouseenter', function() { clearInterval(autoTimer); });
+            outer.addEventListener('mouseleave', startAuto);
 
             // Touch/swipe
-            var touchStartX = 0;
-            track.addEventListener('touchstart', function(e) { touchStartX = e.touches[0].clientX; }, { passive: true });
+            var txStart = 0;
+            track.addEventListener('touchstart', function(e) { txStart = e.touches[0].clientX; }, { passive: true });
             track.addEventListener('touchend', function(e) {
-                var dx = touchStartX - e.changedTouches[0].clientX;
+                var dx = txStart - e.changedTouches[0].clientX;
                 if (Math.abs(dx) > 40) { goTo(currentIdx + (dx > 0 ? 1 : -1)); startAuto(); }
             }, { passive: true });
 
-            // Rebuild on resize
-            window.addEventListener('resize', function() { buildDots(); goTo(Math.min(currentIdx, getMaxIdx())); });
+            window.addEventListener('resize', function() { buildDots(); setPos(currentIdx, false); });
 
             buildDots();
             startAuto();
